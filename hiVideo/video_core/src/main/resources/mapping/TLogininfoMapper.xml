@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.videocore.mapper.TLogininfoMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TLogininfo">
+		<result column="USER_ID" property="userId" jdbcType="CHAR" />
+		<result column="SER_KEY" property="serKey" jdbcType="CHAR" />
+		<result column="AUTH_TOKEN" property="authToken" jdbcType="CHAR" />
+		<result column="DEV_ID" property="devId" jdbcType="CHAR" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="IS_LOGGED" property="isLogged" jdbcType="CHAR" />
+		<result column="LAST_LOGOUT_TIME" property="lastLogoutTime"
+			jdbcType="TIMESTAMP" />
+		<result column="LAST_LOGIN_TIME" property="lastLoginTime"
+			jdbcType="TIMESTAMP" />
+		<result column="RES1" property="res1" jdbcType="CHAR" />
+		<result column="RES2" property="res2" jdbcType="CHAR" />
+		<result column="RES3" property="res3" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, SER_KEY, AUTH_TOKEN,
+		DEV_ID,TYPE,IS_LOGGED,LAST_LOGOUT_TIME,LAST_LOGIN_TIME,RES1,RES2,RES3,LAST_TIME
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select
+		IS_LOGGED
+		from t_logininfo where USER_ID =
+		#{userId,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_logininfo where USER_ID = #{userId,jdbcType=CHAR}
+	</select>
+
+	<insert id="insert" parameterType="com.ebeijia.videocore.pojo.TLogininfo">
+		insert into t_logininfo
+		(USER_ID, SER_KEY, AUTH_TOKEN,
+		DEV_ID, TYPE, IS_LOGGED,
+		LAST_LOGOUT_TIME,
+		LAST_LOGIN_TIME, RES1, RES2,
+		RES3, LAST_TIME)
+		values
+		(#{userId,jdbcType=CHAR}, #{serKey,jdbcType=CHAR},
+		#{authToken,jdbcType=CHAR},
+		#{devId,jdbcType=CHAR},
+		#{type,jdbcType=CHAR}, #{isLogged,jdbcType=CHAR},
+		#{lastLogoutTime,jdbcType=TIMESTAMP},
+		#{lastLoginTime,jdbcType=TIMESTAMP}, #{res1,jdbcType=CHAR},
+		#{res2,jdbcType=CHAR},
+		#{res3,jdbcType=CHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.userId != null">
+				and USER_ID = #{params.userId,jdbcType=CHAR}
+			</if>
+			<if test="params.serKey != null">
+				and SER_KEY = #{params.serKey,jdbcType=CHAR}
+			</if>
+			<if test="params.authToken != null">
+				and AUTH_TOKEN = #{params.authToken,jdbcType=CHAR}
+			</if>
+			<if test="params.devId != null">
+				and DEV_ID = #{params.devId,jdbcType=CHAR}
+			</if>
+			<if test="params.type != null">
+				and TYPE = #{params.type,jdbcType=CHAR}
+			</if>
+			<if test="params.isLogged != null">
+				and IS_LOGGED = #{params.isLogged,jdbcType=CHAR}
+			</if>
+			<if test="params.lastLogoutTime != null">
+				and LAST_LOGOUT_TIME =
+				#{params.lastLogoutTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="params.lastLoginTime != null">
+				and LAST_LOGIN_TIME =
+				#{params.lastLoginTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=CHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=CHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=CHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_logininfo
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_logininfo
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_logininfo
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TLogininfo">
+		update t_logininfo
+		set
+		<if test="serKey!=null">SER_KEY= #{serKey,jdbcType=CHAR},</if>
+
+		AUTH_TOKEN= #{authToken,jdbcType=CHAR},
+		IS_LOGGED=
+		#{isLogged,jdbcType=CHAR},
+		LAST_LOGIN_TIME=
+		#{lastLoginTime,jdbcType=TIMESTAMP}
+		where USER_ID =
+		#{userId,jdbcType=BIGINT}
+	</update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TLogininfo" >
+    update t_logininfo
+    <set >
+      <if test="serKey != null" >
+        SER_KEY = #{serKey,jdbcType=CHAR},
+      </if>
+      <if test="authToken != null" >
+        AUTH_TOKEN = #{authToken,jdbcType=CHAR},
+      </if>
+      <if test="isLogged != null" >
+        IS_LOGGED = #{isLogged,jdbcType=CHAR},
+      </if>
+      <if test="lastLogoutTime != null" >
+        LAST_LOGOUT_TIME = #{lastLogoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="devId != null" >
+        DEV_ID = #{devId,jdbcType=CHAR},
+      </if>
+        <if test="type != null" >
+        TYPE = #{type,jdbcType=CHAR},
+      </if>
+      <if test="res1 != null" >
+        RES1 = #{res1,jdbcType=CHAR},
+      </if>
+      <if test="res2 != null" >
+        RES2 = #{res2,jdbcType=CHAR},
+      </if>
+      <if test="res3 != null" >
+        RES3 = #{res3,jdbcType=CHAR},
+      </if>     
+    </set>
+    where USER_ID = #{userId,jdbcType=CHAR}      
+  </update>
+	<insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TLogininfo">
+		insert into t_logininfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="serKey != null">
+				SER_KEY,
+			</if>
+			<if test="authToken != null">
+				AUTH_TOKEN,
+			</if>
+			<if test="devId != null">
+				DEV_ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="isLogged != null">
+				IS_LOGGED,
+			</if>
+			<if test="lastLogoutTime != null">
+				LAST_LOGOUT_TIME,
+			</if>
+			<if test="lastLoginTime != null">
+				LAST_LOGIN_TIME,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=CHAR},
+			</if>
+			<if test="serKey != null">
+				#{serKey,jdbcType=CHAR},
+			</if>
+			<if test="authToken != null">
+				#{authToken,jdbcType=CHAR},
+			</if>
+			<if test="devId != null">
+				#{devId,jdbcType=CHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="isLogged != null">
+				#{isLogged,jdbcType=CHAR},
+			</if>
+			<if test="lastLogoutTime != null">
+				#{lastLogoutTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginTime != null">
+				#{lastLoginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+</mapper>

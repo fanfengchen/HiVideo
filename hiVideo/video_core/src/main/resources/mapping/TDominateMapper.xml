@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.videocore.mapper.TDominateMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TDominate" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="CHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="CHAR" />
+    <result column="EMAIL" property="email" jdbcType="CHAR" />
+    <result column="R_ID" property="rId" jdbcType="CHAR" />
+    <result column="RES1" property="res1" jdbcType="VARCHAR" />
+    <result column="RES2" property="res2" jdbcType="VARCHAR" />
+    <result column="RES3" property="res3" jdbcType="VARCHAR" />
+    <result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ebeijia.videocore.pojo.TDominate" extends="BaseResultMap" >
+    <result column="ABOUT" property="about" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="params.userId != null" >
+         and USER_ID = #{params.userId,jdbcType=VARCHAR}
+      </if>
+      <if test="params.name != null" >
+         and NAME = #{params.name,jdbcType=VARCHAR}
+      </if>
+      <if test="params.sex != null" >
+         and SEX = #{params.sex,jdbcType=CHAR}
+      </if>
+      <if test="params.mobile != null" >
+         and MOBILE = #{params.mobile,jdbcType=CHAR}
+      </if>
+      <if test="params.email != null" >
+         and EMAIL = #{params.email,jdbcType=CHAR}
+      </if>
+      <if test="params.rId != null" >
+         and R_ID = #{params.rId,jdbcType=CHAR}
+      </if>
+      <if test="params.res1 != null" >
+         and RES1 = #{params.res1,jdbcType=VARCHAR}
+      </if>
+      <if test="params.res2 != null" >
+         and RES2 = #{params.res2,jdbcType=VARCHAR}
+      </if>
+      <if test="params.res3 != null" >
+         and RES3 = #{params.res3,jdbcType=VARCHAR}
+      </if>
+      <if test="params.lastTime != null" >
+         and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.about != null" >
+         and ABOUT = #{params.about,jdbcType=LONGVARCHAR}
+      </if>
+    </trim>
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_dominate
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectCountByParams" resultType="int" >
+    select count(*) from t_dominate
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectListByParams" resultType="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_dominate
+    <include refid="Example_Where_Clause" />
+    <if test="orderParam != null" >
+      order by ${orderParam}
+    </if>
+    <include refid="common.Pagination_Limit" />
+  </select>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, NAME, SEX, MOBILE, EMAIL, R_ID, RES1, RES2, RES3, LAST_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    ABOUT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_dominate
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dominate
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.videocore.pojo.TDominate" >
+    insert into t_dominate (ID, USER_ID, NAME, 
+      SEX, MOBILE, EMAIL, R_ID, 
+      RES1, RES2, RES3, LAST_TIME, 
+      ABOUT)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=CHAR}, #{mobile,jdbcType=CHAR}, #{email,jdbcType=CHAR}, #{rId,jdbcType=CHAR}, 
+      #{res1,jdbcType=VARCHAR}, #{res2,jdbcType=VARCHAR}, #{res3,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{about,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TDominate" >
+    insert into t_dominate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="rId != null" >
+        R_ID,
+      </if>
+      <if test="res1 != null" >
+        RES1,
+      </if>
+      <if test="res2 != null" >
+        RES2,
+      </if>
+      <if test="res3 != null" >
+        RES3,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+      <if test="about != null" >
+        ABOUT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="rId != null" >
+        #{rId,jdbcType=CHAR},
+      </if>
+      <if test="res1 != null" >
+        #{res1,jdbcType=VARCHAR},
+      </if>
+      <if test="res2 != null" >
+        #{res2,jdbcType=VARCHAR},
+      </if>
+      <if test="res3 != null" >
+        #{res3,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="about != null" >
+        #{about,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TDominate" >
+    update t_dominate
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=CHAR},
+      </if>
+      <if test="rId != null" >
+        R_ID = #{rId,jdbcType=CHAR},
+      </if>
+      <if test="res1 != null" >
+        RES1 = #{res1,jdbcType=VARCHAR},
+      </if>
+      <if test="res2 != null" >
+        RES2 = #{res2,jdbcType=VARCHAR},
+      </if>
+      <if test="res3 != null" >
+        RES3 = #{res3,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="about != null" >
+        ABOUT = #{about,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebeijia.videocore.pojo.TDominate" >
+    update t_dominate
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      MOBILE = #{mobile,jdbcType=CHAR},
+      EMAIL = #{email,jdbcType=CHAR},
+      R_ID = #{rId,jdbcType=CHAR},
+      RES1 = #{res1,jdbcType=VARCHAR},
+      RES2 = #{res2,jdbcType=VARCHAR},
+      RES3 = #{res3,jdbcType=VARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      ABOUT = #{about,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TDominate" >
+    update t_dominate
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      MOBILE = #{mobile,jdbcType=CHAR},
+      EMAIL = #{email,jdbcType=CHAR},
+      R_ID = #{rId,jdbcType=CHAR},
+      RES1 = #{res1,jdbcType=VARCHAR},
+      RES2 = #{res2,jdbcType=VARCHAR},
+      RES3 = #{res3,jdbcType=VARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ebeijia.videocore.mapper.TUserMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TUser">
+		<id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+		<result column="REG_TYPE" jdbcType="VARCHAR" property="regType" />
+		<result column="PWD" jdbcType="CHAR" property="pwd" />
+		<result column="STATE" jdbcType="CHAR" property="state" />
+		<result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+		<result column="PHOTO" jdbcType="CHAR" property="photo" />
+		<result column="RES1" jdbcType="CHAR" property="res1" />
+		<result column="RES2" jdbcType="CHAR" property="res2" />
+		<result column="RES3" jdbcType="CHAR" property="res3" />
+		<result column="RES4" jdbcType="CHAR" property="res4" />
+		<result column="RES5" jdbcType="CHAR" property="res5" />
+		<result column="LAST_TIME" jdbcType="TIMESTAMP" property="lastTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_ID, REG_TYPE, PWD, STATE, ROLE_ID, PHOTO, RES1, RES2,
+		RES3, RES4, RES5,
+		LAST_TIME
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.regType != null">
+				and REG_TYPE = #{params.regType,jdbcType=VARCHAR}
+			</if>
+			<if test="params.pwd != null">
+				and PWD = #{params.pwd,jdbcType=CHAR}
+			</if>
+			<if test="params.state != null">
+				and STATE = #{params.state,jdbcType=CHAR}
+			</if>
+			<if test="params.roleId != null">
+				and ROLE_ID = #{params.roleId,jdbcType=INTEGER}
+			</if>
+			<if test="params.photo != null">
+				and PHOTO = #{params.photo,jdbcType=CHAR}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=CHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=CHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=CHAR}
+			</if>
+			<if test="params.res4 != null">
+				and RES4 = #{params.res4,jdbcType=CHAR}
+			</if>
+			<if test="params.res5 != null">
+				and RES5 = #{params.res5,jdbcType=CHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_user
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultMap="BaseResultMap"
+		resultType="list">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectPwdByToken" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select u.USER_ID,u.PWD from t_user u,t_logininfo l where
+		u.USER_ID=l.USER_ID and
+		AUTH_TOKEN=#{token,jdbcType=CHAR}
+	</select>
+	<update id="updatePassword" parameterType="java.lang.String">
+		update t_user set PWD=#{password,jdbcType=CHAR} where
+		USER_ID=#{userId,jdbcType=VARCHAR}
+	</update>
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from t_user
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.ebeijia.videocore.pojo.TUser">
+		insert into t_user (USER_ID,
+		REG_TYPE, PWD,
+		STATE, ROLE_ID, PHOTO, RES1,
+		RES2, RES3, RES4, RES5,
+		LAST_TIME)
+		values (#{userId,jdbcType=VARCHAR},
+		#{regType,jdbcType=VARCHAR},
+		#{pwd,jdbcType=CHAR},
+		#{state,jdbcType=CHAR}, #{roleId,jdbcType=INTEGER},
+		#{photo,jdbcType=CHAR},
+		#{res1,jdbcType=CHAR},
+		#{res2,jdbcType=CHAR},
+		#{res3,jdbcType=CHAR}, #{res4,jdbcType=CHAR}, #{res5,jdbcType=CHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TUser">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="regType != null">
+				REG_TYPE,
+			</if>
+			<if test="pwd != null">
+				PWD,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="photo != null">
+				PHOTO,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="res4 != null">
+				RES4,
+			</if>
+			<if test="res5 != null">
+				RES5,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="regType != null">
+				#{regType,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				#{pwd,jdbcType=CHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=CHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="photo != null">
+				#{photo,jdbcType=CHAR},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=CHAR},
+			</if>
+			<if test="res4 != null">
+				#{res4,jdbcType=CHAR},
+			</if>
+			<if test="res5 != null">
+				#{res5,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TUser">
+		update t_user
+		<set>
+			<if test="regType != null">
+				REG_TYPE = #{regType,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				PWD = #{pwd,jdbcType=CHAR},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=CHAR},
+			</if>
+			<if test="roleId != null">
+				ROLE_ID = #{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="photo != null">
+				PHOTO = #{photo,jdbcType=CHAR},
+			</if>
+			<if test="res1 != null">
+				RES1 = #{res1,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=CHAR},
+			</if>
+			<if test="res4 != null">
+				RES4 = #{res4,jdbcType=CHAR},
+			</if>
+			<if test="res5 != null">
+				RES5 = #{res5,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where USER_ID = #{userId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TUser">
+		update t_user
+		set
+		REG_TYPE = #{regType,jdbcType=VARCHAR},
+		PWD = #{pwd,jdbcType=CHAR},
+		STATE = #{state,jdbcType=CHAR},
+		ROLE_ID = #{roleId,jdbcType=INTEGER},
+		PHOTO = #{photo,jdbcType=CHAR},
+		RES1 = #{res1,jdbcType=CHAR},
+		RES2 =
+		#{res2,jdbcType=CHAR},
+		RES3 = #{res3,jdbcType=CHAR},
+		RES4 =
+		#{res4,jdbcType=CHAR},
+		RES5 = #{res5,jdbcType=CHAR},
+		LAST_TIME =
+		#{lastTime,jdbcType=TIMESTAMP}
+		where USER_ID =
+		#{userId,jdbcType=VARCHAR}
+	</update>
+</mapper>

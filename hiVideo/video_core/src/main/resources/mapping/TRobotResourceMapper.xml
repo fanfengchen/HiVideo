@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.ebeijia.videocore.mapper.TRobotResourceMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TRobotResource">
+		<id column="RR_ID" property="rrId" jdbcType="INTEGER" />
+		<result column="VID" property="vid" jdbcType="INTEGER" />
+		<result column="R_ID" property="rId" jdbcType="INTEGER" />
+		<result column="VL_TIME" property="vlTime" jdbcType="TIMESTAMP" />
+		<result column="ABOUT" property="about" jdbcType="VARCHAR" />
+		<result column="RES1" property="res1" jdbcType="VARCHAR" />
+		<result column="RES2" property="res2" jdbcType="VARCHAR" />
+		<result column="RES3" property="res3" jdbcType="VARCHAR" />
+		<result column="RES4" property="res4" jdbcType="VARCHAR" />
+		<result column="RES5" property="res5" jdbcType="VARCHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		RR_ID, VID, R_ID, VL_TIME, ABOUT, RES1, RES2, RES3, RES4,
+		RES5, LAST_TIME
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+		
+			<if test="params.vid != null">
+				and VID = #{params.vid,jdbcType=INTEGER}
+			</if>
+			<if test="params.vids != null">
+				and VID in (${params.vids})
+			</if>
+			<if test="params.rId != null">
+				and R_ID = #{params.rId,jdbcType=INTEGER}
+			</if>
+			<if test="params.rIds != null">
+				and R_ID in (${params.rIds})
+			</if>
+			<if test="params.vlTime != null">
+				and VL_TIME = #{params.vlTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="params.vType != null">
+				and c.VTYPE = #{params.vType,jdbcType=VARCHAR}
+			</if>
+			<if test="params.deviceId != null">
+				and a.DEVICE_ID = #{params.deviceId,jdbcType=VARCHAR}
+			</if>
+			<if test="params.vName != null">
+				and c.VNAME = #{params.vName,jdbcType=VARCHAR}
+			</if>
+			<if test="params.about != null">
+				and ABOUT = #{params.about,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res4 != null">
+				and RES4 = #{params.res4,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res5 != null">
+				and RES5 = #{params.res5,jdbcType=VARCHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_robot_resource
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_robot_resource
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_robot_resource
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<!-- <include refid="common.Pagination_Limit" /> -->
+	</select>
+	<select id="selectListRobotResource" resultType="list"
+		resultMap="BaseResultMap">
+		SELECT s.VID as vid,a.DEVICE_ID as deviceId,a.DEVICE_NAME as deviceName,s.RR_ID as
+		rrId,c.VTYPE as vtype,c.VNAME as vname,c.VAGE as vage,c.VU as vu,c.UU
+		as uu,
+		d.LOCAL_PATH as imgpath,c.V_URL as vurl,c.ABOUT as about
+		from
+		t_robot a,t_robot_resource s,t_video_resource c,t_fileinfo d
+		<include refid="Example_Where_Clause" />
+		and a.R_ID=s.R_ID and s.VID=c.VID and c.FILE_ID=d.FILE_ID 
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+	</select>
+
+	<select id="selectUserReportResource"  resultType="list"
+		resultMap="BaseResultMap">
+		SELECT
+		r.VID as vid,
+		r.RR_ID AS rrid,
+		v.VNAME AS vname,
+		v.VU as vu,
+        v.UU as uu,
+		v.VTYPE AS vtype,
+		v.VAGE AS
+		vage,
+		f.LOCAL_PATH AS imgpath,
+		v.V_URL AS vUrl,
+		r.ABOUT AS about
+		FROM
+		t_robot_resource r,
+		t_robot t,
+		t_video_resource v,
+		t_fileinfo f
+		where
+		r.R_ID=t.R_ID and
+		r.VID = v.VID and
+		v.FILE_ID = f.FILE_ID
+		<if test="params.vid != null">
+			and r.VID = #{params.vid,jdbcType=VARCHAR}
+		</if>
+		<if test="params.deviceId != null">
+			and t.DEVICE_ID = #{params.deviceId,jdbcType=VARCHAR}
+		</if>
+		<if test="params.vname != null">
+			and v.VNAME = #{params.vname,jdbcType=VARCHAR}
+		</if>
+		<if test="params.vtype != null">
+			and v.VTYPE = #{params.vtype,jdbcType=VARCHAR}
+		</if>
+
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_robot_resource
+		where RR_ID = #{rrId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_robot_resource
+		where RR_ID = #{rrId,jdbcType=INTEGER}
+	</delete>
+		<delete id="deleteByPrimary" parameterType="java.lang.Integer">
+		delete from
+		t_robot_resource
+		where R_ID = #{rId,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByPrimaryParamsKey" parameterType="String">
+		delete from t_robot_resource where RR_ID in #{rrId,jdbcType=VARCHAR}
+	</delete>
+	
+	<insert id="insert" parameterType="com.ebeijia.videocore.pojo.TRobotResource"
+		useGeneratedKeys="true" keyProperty="rrId">
+		insert into t_robot_resource
+		(RR_ID, VID, R_ID,
+		VL_TIME, ABOUT, RES1,
+		RES2, RES3, RES4, RES5,
+		LAST_TIME)
+		values (#{rrId,jdbcType=INTEGER}, #{vid,jdbcType=INTEGER},
+		#{rId,jdbcType=INTEGER},
+		#{vlTime,jdbcType=TIMESTAMP},
+		#{about,jdbcType=VARCHAR}, #{res1,jdbcType=VARCHAR},
+		#{res2,jdbcType=VARCHAR}, #{res3,jdbcType=VARCHAR},
+		#{res4,jdbcType=VARCHAR}, #{res5,jdbcType=VARCHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TRobotResource"
+		useGeneratedKeys="true" keyProperty="rrId">
+		insert into t_robot_resource
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="rrId != null">
+				RR_ID,
+			</if>
+			<if test="vid != null">
+				VID,
+			</if>
+			<if test="rId != null">
+				R_ID,
+			</if>
+			<if test="vlTime != null">
+				VL_TIME,
+			</if>
+			<if test="about != null">
+				ABOUT,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="res4 != null">
+				RES4,
+			</if>
+			<if test="res5 != null">
+				RES5,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="rrId != null">
+				#{rrId,jdbcType=INTEGER},
+			</if>
+			<if test="vid != null">
+				#{vid,jdbcType=INTEGER},
+			</if>
+			<if test="rId != null">
+				#{rId,jdbcType=INTEGER},
+			</if>
+			<if test="vlTime != null">
+				#{vlTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="about != null">
+				#{about,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="res4 != null">
+				#{res4,jdbcType=VARCHAR},
+			</if>
+			<if test="res5 != null">
+				#{res5,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TRobotResource">
+		update t_robot_resource
+		<set>
+			<if test="vid != null">
+				VID = #{vid,jdbcType=INTEGER},
+			</if>
+			<if test="rId != null">
+				R_ID = #{rId,jdbcType=INTEGER},
+			</if>
+			<if test="vlTime != null">
+				VL_TIME = #{vlTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="about != null">
+				ABOUT = #{about,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				RES1 = #{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="res4 != null">
+				RES4 = #{res4,jdbcType=VARCHAR},
+			</if>
+			<if test="res5 != null">
+				RES5 = #{res5,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where RR_ID = #{rrId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TRobotResource">
+		update
+		t_robot_resource
+		set VID = #{vid,jdbcType=INTEGER},
+		R_ID =
+		#{rId,jdbcType=INTEGER},
+		VL_TIME = #{vlTime,jdbcType=TIMESTAMP},
+		ABOUT =
+		#{about,jdbcType=VARCHAR},
+		RES1 = #{res1,jdbcType=VARCHAR},
+		RES2 =
+		#{res2,jdbcType=VARCHAR},
+		RES3 = #{res3,jdbcType=VARCHAR},
+		RES4 =
+		#{res4,jdbcType=VARCHAR},
+		RES5 = #{res5,jdbcType=VARCHAR},
+		LAST_TIME =
+		#{lastTime,jdbcType=TIMESTAMP}
+		where RR_ID = #{rrId,jdbcType=INTEGER}
+	</update>
+</mapper>

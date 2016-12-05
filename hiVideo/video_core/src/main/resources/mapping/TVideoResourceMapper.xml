@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.videocore.mapper.TVideoResourceMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TVideoResource">
+		<id column="VID" property="vid" jdbcType="INTEGER" />
+		<result column="VNAME" property="vname" jdbcType="VARCHAR" />
+		<result column="VTYPE" property="vtype" jdbcType="CHAR" />
+		<result column="VAGE" property="vage" jdbcType="VARCHAR" />
+		<result column="VU" property="vu" jdbcType="VARCHAR" />
+		<result column="UU" property="uu" jdbcType="VARCHAR" />
+		<result column="V_URL" property="vUrl" jdbcType="VARCHAR" />
+		<result column="V_STATE" property="vState" jdbcType="VARCHAR" />
+		<result column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
+		<result column="ABOUT" property="about" jdbcType="VARCHAR" />
+		<result column="RES1" property="res1" jdbcType="VARCHAR" />
+		<result column="RES2" property="res2" jdbcType="VARCHAR" />
+		<result column="RES3" property="res3" jdbcType="VARCHAR" />
+		<result column="RES4" property="res4" jdbcType="VARCHAR" />
+		<result column="RES5" property="res5" jdbcType="VARCHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+    VID, VNAME, VTYPE, VAGE, VU, UU, V_URL, V_STATE, FILE_ID, ABOUT,RES1,RES2
+    RES3, RES4, RES5,LAST_TIME
+  </sql>
+	<sql id="Example_Where_User">
+	
+	   <if test="params.vname != null">
+				and v.VNAME = #{params.vname,jdbcType=VARCHAR}
+		</if>
+		<if test="params.vtype != null">
+			and v.VTYPE = #{params.vtype,jdbcType=CHAR}
+		</if>
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.vname != null">
+				and VNAME = #{params.vname,jdbcType=VARCHAR}
+			</if>
+			<if test="params.vtype != null">
+				and VTYPE = #{params.vtype,jdbcType=CHAR}
+			</if>
+			<if test="params.vage != null">
+				and VAGE = #{params.vage,jdbcType=VARCHAR}
+			</if>
+			<if test="params.vu != null">
+				and VU = #{params.vu,jdbcType=VARCHAR}
+			</if>
+			<if test="params.uu != null">
+				and UU = #{params.uu,jdbcType=VARCHAR}
+			</if>
+			<if test="params.vUrl != null">
+				and V_URL = #{params.vUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="params.vState != null">
+				and V_STATE = #{params.vState,jdbcType=VARCHAR}
+			</if>
+			<if test="params.fileId != null">
+				and FILE_ID = #{params.fileId,jdbcType=VARCHAR}
+			</if>
+			<if test="params.about != null">
+				and ABOUT = #{params.about,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res4 != null">
+				and RES4 = #{params.res4,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res5 != null">
+				and RES5 = #{params.res5,jdbcType=VARCHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_video_resource
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_video_resource
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_video_resource
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_video_resource
+		where VID = #{vid,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectListVideoResource" resultType="list"
+		resultMap="BaseResultMap">
+		select v.VID as vid ,v.VNAME as vname ,v.VTYPE as vtype,v.VAGE as
+		vage,v.UU
+		AS uu,v.VU as vu ,f.LOCAL_PATH as imgpath ,v.V_URL as
+		vUrl,v.ABOUT as
+		about,f.FILE_ID as fileId
+		from t_video_resource
+		v,t_fileinfo f		
+		 where v.FILE_ID=f.FILE_ID
+		 <if test="params.vname != null">
+				and v.VNAME = #{params.vname,jdbcType=VARCHAR}
+		</if>
+		<if test="params.vtype != null">
+			and v.VTYPE = #{params.vtype,jdbcType=CHAR}
+		</if>
+		<if test="orderParam != null"> 
+		order by ${orderParam}
+		</if>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_video_resource
+		where VID = #{vid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ebeijia.videocore.pojo.TVideoResource">
+		insert into t_video_resource
+		(VID, VNAME, VTYPE,
+		VAGE, VU, UU, V_URL,
+		V_STATE, FILE_ID, ABOUT,
+		RES1,
+		RES2, RES3, RES4,
+		RES5, LAST_TIME)
+		values (#{vid,jdbcType=INTEGER},
+		#{vname,jdbcType=VARCHAR},
+		#{vtype,jdbcType=CHAR},
+		#{vage,jdbcType=VARCHAR}, #{vu,jdbcType=VARCHAR},
+		#{uu,jdbcType=VARCHAR},
+		#{vUrl,jdbcType=VARCHAR},
+		#{vState,jdbcType=VARCHAR}, #{fileId,jdbcType=VARCHAR},
+		#{about,jdbcType=VARCHAR},
+		#{res1,jdbcType=VARCHAR},
+		#{res2,jdbcType=VARCHAR},
+		#{res3,jdbcType=VARCHAR},
+		#{res4,jdbcType=VARCHAR},
+		#{res5,jdbcType=VARCHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TVideoResource">
+		insert into t_video_resource
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="vid != null">
+				VID,
+			</if>
+			<if test="vname != null">
+				VNAME,
+			</if>
+			<if test="vtype != null">
+				VTYPE,
+			</if>
+			<if test="vage != null">
+				VAGE,
+			</if>
+			<if test="vu != null">
+				VU,
+			</if>
+			<if test="uu != null">
+				UU,
+			</if>
+			<if test="vUrl != null">
+				V_URL,
+			</if>
+			<if test="vState != null">
+				V_STATE,
+			</if>
+			<if test="fileId != null">
+				FILE_ID,
+			</if>
+			<if test="about != null">
+				ABOUT,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="res4 != null">
+				RES4,
+			</if>
+			<if test="res5 != null">
+				RES5,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="vid != null">
+				#{vid,jdbcType=INTEGER},
+			</if>
+			<if test="vname != null">
+				#{vname,jdbcType=VARCHAR},
+			</if>
+			<if test="vtype != null">
+				#{vtype,jdbcType=CHAR},
+			</if>
+			<if test="vage != null">
+				#{vage,jdbcType=VARCHAR},
+			</if>
+			<if test="vu != null">
+				#{vu,jdbcType=VARCHAR},
+			</if>
+			<if test="uu != null">
+				#{uu,jdbcType=VARCHAR},
+			</if>
+			<if test="vUrl != null">
+				#{vUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="vState != null">
+				#{vState,jdbcType=VARCHAR},
+			</if>
+			<if test="fileId != null">
+				#{fileId,jdbcType=VARCHAR},
+			</if>
+			<if test="about != null">
+				#{about,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="res4 != null">
+				#{res4,jdbcType=VARCHAR},
+			</if>
+			<if test="res5 != null">
+				#{res5,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TVideoResource">
+		update t_video_resource
+		<set>
+			<if test="vname != null">
+				VNAME = #{vname,jdbcType=VARCHAR},
+			</if>
+			<if test="vtype != null">
+				VTYPE = #{vtype,jdbcType=CHAR},
+			</if>
+			<if test="vage != null">
+				VAGE = #{vage,jdbcType=VARCHAR},
+			</if>
+			<if test="vu != null">
+				VU = #{vu,jdbcType=VARCHAR},
+			</if>
+			<if test="uu != null">
+				UU = #{uu,jdbcType=VARCHAR},
+			</if>
+			<if test="vUrl != null">
+				V_URL = #{vUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="vState != null">
+				V_STATE = #{vState,jdbcType=VARCHAR},
+			</if>
+			<if test="fileId != null">
+				FILE_ID = #{fileId,jdbcType=VARCHAR},
+			</if>
+			<if test="about != null">
+				ABOUT = #{about,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				RES1 = #{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="res4 != null">
+				RES4 = #{res4,jdbcType=VARCHAR},
+			</if>
+			<if test="res5 != null">
+				RES5 = #{res5,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where VID = #{vid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TVideoResource">
+		update
+		t_video_resource
+		set VNAME = #{vname,jdbcType=VARCHAR},
+		VTYPE =
+		#{vtype,jdbcType=CHAR},
+		VAGE = #{vage,jdbcType=VARCHAR},
+		VU =
+		#{vu,jdbcType=VARCHAR},
+		UU = #{uu,jdbcType=VARCHAR},
+		V_URL =
+		#{vUrl,jdbcType=VARCHAR},
+		V_STATE = #{vState,jdbcType=VARCHAR},
+		FILE_ID
+		= #{fileId,jdbcType=VARCHAR},
+		ABOUT = #{about,jdbcType=VARCHAR},
+		RES1 =
+		#{res1,jdbcType=VARCHAR},
+		RES2 = #{res2,jdbcType=VARCHAR},
+		RES3 =
+		#{res3,jdbcType=VARCHAR},
+		RES4 = #{res4,jdbcType=VARCHAR},
+		RES5 =
+		#{res5,jdbcType=VARCHAR},
+		LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+		where VID = #{vid,jdbcType=INTEGER}
+	</update>
+</mapper>

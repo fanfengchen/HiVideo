@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.videocore.mapper.TRobotinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TRobotinfo" >
+    <id column="RR_ID" property="rrId" jdbcType="INTEGER" />
+    <result column="R_ID" property="rId" jdbcType="INTEGER" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="ABOUT" property="about" jdbcType="VARCHAR" />
+    <result column="SNAME" property="sname" jdbcType="VARCHAR" />
+    <result column="RES2" property="res2" jdbcType="VARCHAR" />
+    <result column="RES3" property="res3" jdbcType="VARCHAR" />
+    <result column="RES4" property="res4" jdbcType="VARCHAR" />
+    <result column="RES5" property="res5" jdbcType="VARCHAR" />
+    <result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RR_ID, R_ID, STATE, ABOUT, SNAME, RES2, RES3, RES4, RES5, LAST_TIME
+  </sql>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="params.rId != null" >
+         and R_ID = #{params.rId,jdbcType=INTEGER}
+      </if>
+      <if test="params.state != null" >
+         and STATE = #{params.state,jdbcType=VARCHAR}
+      </if>
+      <if test="params.about != null" >
+         and ABOUT = #{params.about,jdbcType=VARCHAR}
+      </if>
+      <if test="params.sname != null" >
+         and SNAME = #{params.sname,jdbcType=VARCHAR}
+      </if>
+      <if test="params.res2 != null" >
+         and RES2 = #{params.res2,jdbcType=VARCHAR}
+      </if>
+      <if test="params.res3 != null" >
+         and RES3 = #{params.res3,jdbcType=VARCHAR}
+      </if>
+      <if test="params.res4 != null" >
+         and RES4 = #{params.res4,jdbcType=VARCHAR}
+      </if>
+      <if test="params.res5 != null" >
+         and RES5 = #{params.res5,jdbcType=VARCHAR}
+      </if>
+      <if test="params.lastTime != null" >
+         and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_robotinfo
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectCountByParams" resultType="int" >
+    select count(*) from t_robotinfo
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectListByParams" resultType="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_robotinfo
+    <include refid="Example_Where_Clause" />
+    <if test="orderParam != null" >
+      order by ${orderParam}
+    </if>
+    <include refid="common.Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_robotinfo
+    where RR_ID = #{rrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_robotinfo
+    where RR_ID = #{rrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.videocore.pojo.TRobotinfo" useGeneratedKeys="true" keyProperty="rrId">
+    insert into t_robotinfo (RR_ID, R_ID, STATE, 
+      ABOUT, SNAME, RES2, 
+      RES3, RES4, RES5, LAST_TIME
+      )
+    values (#{rrId,jdbcType=INTEGER}, #{rId,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{about,jdbcType=VARCHAR}, #{sname,jdbcType=VARCHAR}, #{res2,jdbcType=VARCHAR}, 
+      #{res3,jdbcType=VARCHAR}, #{res4,jdbcType=VARCHAR}, #{res5,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TRobotinfo" useGeneratedKeys="true" keyProperty="rrId">
+    insert into t_robotinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rrId != null" >
+        RR_ID,
+      </if>
+      <if test="rId != null" >
+        R_ID,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="about != null" >
+        ABOUT,
+      </if>
+      <if test="sname != null" >
+        SNAME,
+      </if>
+      <if test="res2 != null" >
+        RES2,
+      </if>
+      <if test="res3 != null" >
+        RES3,
+      </if>
+      <if test="res4 != null" >
+        RES4,
+      </if>
+      <if test="res5 != null" >
+        RES5,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rrId != null" >
+        #{rrId,jdbcType=INTEGER},
+      </if>
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="about != null" >
+        #{about,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="res2 != null" >
+        #{res2,jdbcType=VARCHAR},
+      </if>
+      <if test="res3 != null" >
+        #{res3,jdbcType=VARCHAR},
+      </if>
+      <if test="res4 != null" >
+        #{res4,jdbcType=VARCHAR},
+      </if>
+      <if test="res5 != null" >
+        #{res5,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TRobotinfo" >
+    update t_robotinfo
+    <set >
+      <if test="rId != null" >
+        R_ID = #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="about != null" >
+        ABOUT = #{about,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        SNAME = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="res2 != null" >
+        RES2 = #{res2,jdbcType=VARCHAR},
+      </if>
+      <if test="res3 != null" >
+        RES3 = #{res3,jdbcType=VARCHAR},
+      </if>
+      <if test="res4 != null" >
+        RES4 = #{res4,jdbcType=VARCHAR},
+      </if>
+      <if test="res5 != null" >
+        RES5 = #{res5,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where RR_ID = #{rrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TRobotinfo" >
+    update t_robotinfo
+    set R_ID = #{rId,jdbcType=INTEGER},
+      STATE = #{state,jdbcType=VARCHAR},
+      ABOUT = #{about,jdbcType=VARCHAR},
+      SNAME = #{sname,jdbcType=VARCHAR},
+      RES2 = #{res2,jdbcType=VARCHAR},
+      RES3 = #{res3,jdbcType=VARCHAR},
+      RES4 = #{res4,jdbcType=VARCHAR},
+      RES5 = #{res5,jdbcType=VARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where RR_ID = #{rrId,jdbcType=INTEGER}
+  </update>
+</mapper>

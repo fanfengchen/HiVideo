@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+	<properties resource="db.properties"/>
+	<classPathEntry location="C:\Users\Administrator\.m2\repository\mysql\mysql-connector-java\5.1.18\mysql-connector-java-5.1.18.jar"/>
+	
+	<context id="context1" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+		<plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$"/>
+			<property name="replaceString" value="Criteria"/>
+		</plugin>
+		<plugin type="org.mybatis.generator.plugins.MybatisCriteriaPlugin" >
+			<!-- 如果 CommonMapper.xml 文件不存在，设置为 false，将自动生成  -->	
+			<property name="commonFile" value="true"/>
+		</plugin>
+		<commentGenerator> 
+			<!-- 删除代码中带有代码生成器的注释信息  -->
+			<property name="suppressAllComments" value="true"/>
+			<property name="suppressDate" value="true"/>
+		</commentGenerator>
+		<jdbcConnection driverClass="${driverClassName}" connectionURL="${url}" userId="${username}" password="${password}"/>
+		<javaModelGenerator targetPackage="com.ebeijia.videocore.pojo" targetProject="video_core/src/main/java"/>
+		<sqlMapGenerator targetPackage="mapping" targetProject="video_core/src/main/resources" />
+		<javaClientGenerator targetPackage="com.ebeijia.videocore.mapper" targetProject="video_core/src/main/java" type="XMLMAPPER"/>
+		
+		<table tableName="t_user" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="fasle" ></table>
+	 	</context>
+</generatorConfiguration>

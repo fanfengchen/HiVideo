@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.videocore.mapper.TDominateLogMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TDominateLog">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<id column="DEVICEID" property="deviceid" jdbcType="VARCHAR" />
+		<result column="DTYPE" property="dtype" jdbcType="VARCHAR" />
+		<result column="DTIME" property="dtime" jdbcType="TIMESTAMP" />
+		<result column="DSTATE" property="dstate" jdbcType="VARCHAR" />
+		<result column="DCONTEXT" property="dcontext" jdbcType="VARCHAR" />
+		<result column="RES1" property="res1" jdbcType="VARCHAR" />
+		<result column="RES2" property="res2" jdbcType="VARCHAR" />
+		<result column="RES3" property="res3" jdbcType="VARCHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID,DEVICEID, DTYPE, DTIME, DSTATE, DCONTEXT, RES1, RES2,
+		RES3, LAST_TIME
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.devId != null">
+				and DEVICEID = #{params.devId,jdbcType=VARCHAR}
+			</if>
+			<if test="params.deviceIds != null">
+			
+			and b.DEVICEID in (${params.deviceIds})
+			 <!-- <![CDATA[and b.DEVICEID in #{params.deviceIds}]]> -->			
+			</if>
+			<if test="params.dtype != null">
+				and DTYPE = #{params.dtype,jdbcType=VARCHAR}
+			</if>
+			<if test="params.dtime != null">
+				and DTIME = #{params.dtime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="params.beginTime != null">
+	      	<![CDATA[
+	      		and DTIME>=#{params.beginTime,jdbcType=TIMESTAMP}
+	      	]]>
+			</if>
+			<if test="params.endTime != null">
+	        <![CDATA[
+	      		and DTIME<=#{params.endTime,jdbcType=TIMESTAMP}
+	      	]]>
+			</if>
+			<if test="params.dstate != null">
+				and DSTATE = #{params.dstate,jdbcType=VARCHAR}
+			</if>
+			<if test="params.dcontext != null">
+				and DCONTEXT = #{params.dcontext,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=VARCHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+			   
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dominate_log
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_dominate_log
+		<include refid="Example_Where_Clause" />
+	</select>
+	
+	<select id="selectAllListParams" resultType="list" resultMap="BaseResultMap">
+		SELECT b.ID,a.DEVICE_NAME as deviceName,b.DSTATE,b.DTIME,b.DCONTEXT from t_robot a,t_dominate_log b
+		 <include refid="Example_Where_Clause"/>
+		and a.DEVICE_ID=b.DEVICEID and b.DTYPE='02'
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>	
+	</select>
+	
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dominate_log
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<!-- <include refid="common.Pagination_Limit" /> -->
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from t_dominate_log
+		where DEVICEID = #{deviceid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimary" parameterType="java.lang.Integer">
+		delete from
+		t_dominate_log
+		where ID = #{deviceid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ebeijia.videocore.pojo.TDominateLog"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_dominate_log
+		(ID,DEVICEID, DTYPE, DTIME,
+		DSTATE, DCONTEXT, RES1,
+		RES2, RES3,
+		LAST_TIME
+		)
+		values (#{id,jdbcType=INTEGER},#{deviceid,jdbcType=VARCHAR},
+		#{dtype,jdbcType=VARCHAR}, #{dtime,jdbcType=TIMESTAMP},
+		#{dstate,jdbcType=VARCHAR}, #{dcontext,jdbcType=VARCHAR},
+		#{res1,jdbcType=VARCHAR},
+		#{res2,jdbcType=VARCHAR},
+		#{res3,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TDominateLog"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_dominate_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="deviceid != null">
+				DEVICEID,
+			</if>
+			<if test="dtype != null">
+				DTYPE,
+			</if>
+			<if test="dtime != null">
+				DTIME,
+			</if>
+			<if test="dstate != null">
+				DSTATE,
+			</if>
+			<if test="dcontext != null">
+				DCONTEXT,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="id != null">
+				#{id,jdbcType=INTEGER}
+			</if>
+			<if test="deviceid != null">
+				#{deviceid,jdbcType=VARCHAR},
+			</if>
+			<if test="dtype != null">
+				#{dtype,jdbcType=VARCHAR},
+			</if>
+			<if test="dtime != null">
+				#{dtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dstate != null">
+				#{dstate,jdbcType=VARCHAR},
+			</if>
+			<if test="dcontext != null">
+				#{dcontext,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.videocore.pojo.TDominateLog">
+		update t_dominate_log
+		<set>
+
+			<if test="dtype != null">
+				DTYPE = #{dtype,jdbcType=VARCHAR},
+			</if>
+			<if test="dtime != null">
+				DTIME = #{dtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="dstate != null">
+				DSTATE = #{dstate,jdbcType=VARCHAR},
+			</if>
+			<if test="dcontext != null">
+				DCONTEXT = #{dcontext,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				RES1 = #{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.videocore.pojo.TDominateLog">
+		update
+		t_dominate_log
+		set DTYPE = #{dtype,jdbcType=VARCHAR},
+		DTIME =
+		#{dtime,jdbcType=TIMESTAMP},
+		DSTATE = #{dstate,jdbcType=VARCHAR},
+		DCONTEXT = #{dcontext,jdbcType=VARCHAR},
+		RES1 =
+		#{res1,jdbcType=VARCHAR},
+		RES2 = #{res2,jdbcType=VARCHAR},
+		RES3 =
+		#{res3,jdbcType=VARCHAR},
+		LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.videocore.mapper.TVerificationMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.videocore.pojo.TVerification">
+		<result column="MOBILE" property="mobile" jdbcType="CHAR" />
+		<result column="VERF_CODE" property="verfCode" jdbcType="CHAR" />
+		<result column="VERF_TYPE" property="verfType" jdbcType="CHAR" />
+		<result column="IS_ACTIVE" property="isActive" jdbcType="CHAR" />
+		<result column="SEND_TIME" property="sendTime" jdbcType="TIMESTAMP" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		MOBILE, VERF_CODE, VERF_TYPE, IS_ACTIVE,
+		SEND_TIME,LAST_TIME
+	</sql>
+
+	<insert id="insert" parameterType="com.ebeijia.videocore.pojo.TVerification">
+		insert into t_verification
+		(MOBILE, VERF_CODE, VERF_TYPE,
+		IS_ACTIVE, SEND_TIME, LAST_TIME
+		)
+		values
+		(#{mobile,jdbcType=CHAR}, #{verfCode,jdbcType=CHAR},
+		#{verfType,jdbcType=CHAR},
+		#{isActive,jdbcType=CHAR},
+		#{sendTime,jdbcType=TIMESTAMP}, #{lastTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.mobile != null">
+				and MOBILE = #{params.mobile,jdbcType=CHAR}
+			</if>
+			<if test="params.verfCode != null">
+				and VERF_CODE = #{params.verfCode,jdbcType=CHAR}
+			</if>
+			<if test="params.verfType != null">
+				and VERF_TYPE = #{params.verfType,jdbcType=CHAR}
+			</if>
+			<if test="params.isActive != null">
+				and IS_ACTIVE = #{params.isActive,jdbcType=CHAR}
+			</if>
+			<if test="params.sendTime != null">
+				and SEND_TIME = #{params.sendTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_verification
+		where MOBILE=#{mobile,jdbcType=CHAR} and
+		VERF_CODE=#{verfCode,jdbcType=CHAR}
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_verification
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_verification
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+	<insert id="insertSelective" parameterType="com.ebeijia.videocore.pojo.TVerification">
+		insert into t_verification
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="verfCode != null">
+				VERF_CODE,
+			</if>
+			<if test="verfType != null">
+				VERF_TYPE,
+			</if>
+			<if test="isActive != null">
+				IS_ACTIVE,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mobile != null">
+				#{mobile,jdbcType=CHAR},
+			</if>
+			<if test="verfCode != null">
+				#{verfCode,jdbcType=CHAR},
+			</if>
+			<if test="verfType != null">
+				#{verfType,jdbcType=CHAR},
+			</if>
+			<if test="isActive != null">
+				#{isActive,jdbcType=CHAR},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateSelect" parameterType="com.ebeijia.videocore.pojo.TVerification">
+		update t_verification
+		<set>
+			<if test="verfCode != null">
+				VERF_CODE = #{verfCode,jdbcType=CHAR},
+			</if>
+			<if test="verfType != null">
+				VERF_TYPE = #{verfType,jdbcType=CHAR},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isActive != null">
+				IS_ACTIVE = #{isActive,jdbcType=CHAR},
+			</if>
+		</set>
+		where MOBILE = #{mobile,jdbcType=CHAR}
+	</update>
+
+</mapper>
