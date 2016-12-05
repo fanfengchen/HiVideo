@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../resources/js/lib/hogan-3.0.1.min.js"></script>
+
+</head>
+
+<body>
+  <div class="views">
+    <link rel="stylesheet" href="../resources/stylesheets/bank.css">
+    <div class="header">
+      <i class="angle double left icon"></i>
+    </div>
+    <div class="block">
+      已绑定的银行卡
+    </div>
+    <div class="item-list-box">
+      <ul class="item-list">
+        <li class="active">
+          <div class="media">
+            <img src="../resources/images/icon_xingye.png" alt="">
+          </div>
+          <div class="label">兴业银行借记卡(****0040)</div>
+          <div class="form-control">
+            <i class="checkmark icon"></i>	
+          </div>
+        </li>
+        <li>
+          <div class="media">
+            <img src="../resources/images/icon_construction.png" alt="">
+          </div>
+          <div class="label">招商银行信用卡(****0040)</div>
+          <div class="form-control">
+            <i class="checkmark icon"></i>	
+          </div>
+        </li>
+        <li>
+          <div class="media">
+            <img src="../resources/images/icon_merchants.png" alt="">
+          </div>
+          <div class="label">建设银行借记卡(****0040)</div>
+          <div class="form-control">
+            <i class="checkmark icon"></i>	
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script>
+      $(".item-list-box li").on("click", function(){
+          $(this).addClass("active").siblings().removeClass("active");
+      });
+    </script>
+  </div>
+  <div id="night"></div>
+
+</body>
+
+</html>

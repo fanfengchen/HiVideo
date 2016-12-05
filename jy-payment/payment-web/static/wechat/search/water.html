@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>自来水缴费</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+
+  <link rel="stylesheet" href="../../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <!--<script src="../../resources/js/lib/hogan-3.0.1.min.js"></script>-->
+  <script src="../../resources/js/search/water.js"></script>
+
+</head>
+
+<body>
+  <div class="views">
+    <link rel="stylesheet" href="../../resources/stylesheets/card.css">
+    <div class="main-board">
+      <div class="card">
+        <div class="card-header">
+          <span class="media">
+				<img src="../../resources/images/icon_water.png" alt="">
+			</span>	自来水缴费
+        </div>
+        <div class="content">
+          <ul class="card-list">
+            <li>
+              <span class="label">缴费单位</span>
+              <span class="form-control"><a href="#">江油鸿飞集团</a></span>
+            </li>
+            <li>
+              <span class="label">用户户号</span>	
+              <input type="number" id="userNo" onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" maxlength="8"
+                     class="form-control" placeholder="请查看缴费发票上的客户号">
+            </li>
+            <!--<li>
+              <span class="label">备注名称</span>
+              <input type="text" class="form-control" placeholder="请输入备注名称">
+            </li>-->
+          </ul>
+        </div>
+        <div class="card-footer">
+          <button class="ui submit-btn" onclick="query()">查询</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="night"></div>
+
+</body>
+
+</html>

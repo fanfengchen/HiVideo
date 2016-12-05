@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>充值金额选择</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../resources/js/lib/hogan-3.0.1.min.js"></script>
+  <script src="../resources/js/baseinfo.js"></script>
+  <script src="../resources/js/watermeter-payment.js"></script>
+
+</head>
+
+<body>
+  <div class="views">
+    <link rel="stylesheet" href="../resources/stylesheets/watermeter.css">
+    <div class="header">
+
+    </div>
+    <div class="weter-board">
+      <div class="bill-board">
+        <div class="bill-userID">
+          <p class="userID-name">充值户号<span class="userID" id="userNo"></span>
+          </p>
+        </div>
+        <div class="binding-bill">
+          <p class="binding-name"></p>
+          <p class="binding-info">远传水表绑定户号</p>
+        </div>
+      </div>
+    </div>
+    <div class="payment-board">
+      <div class="fixation">
+        <p class="label">请选择充值金额</p>
+        <ul class="fix-group">
+          <li class="fix-num" value="50.00">50</li>
+          <li class="fix-num active" value="100.00">100</li>
+          <li class="fix-num" value="300.00">300</li>
+          <li class="fix-num" value="500.00">500</li>
+          <li class="fix-num" value="1000.00">1000</li>
+        </ul>
+      </div>
+      <div class="define">
+        <p class="define-name">自定义金额</p>
+        <div class="define-content">
+          <img src="../resources/images/icon_sum.png" alt="" />
+          <input id="amt" type="number" max="99999.99" min="0" onmousedown="mouseDown()"   placeholder="请输入想要充值额金额" />
+        </div>
+      </div>
+    </div>
+    <div class="btn-default">
+      <button id="subBut" type="button" class="btn" onclick="confirmSub()" >充值</button>
+    </div>
+    <script>
+      $('.payment-board .fix-group li').on('click',function(){
+        $(this).addClass('active').siblings().removeClass('active');
+        $("#amt").val("");
+      })
+    </script>
+  </div>
+  <div id="night"></div>
+
+</body>
+
+</html>

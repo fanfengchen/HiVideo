@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd    
+                          ">
+
+
+	<!-- json转换 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="objectMapper" ref="objectMapper">
+			
+		</property>
+	</bean>
+	 <bean class="com.ebeijia.web.json.NullJsonObjectMaper" id="objectMapper">
+         <!-- 处理responseBody 里面日期类型 --> 
+         <property name="dateFormat">  
+             <bean class="java.text.SimpleDateFormat">  
+                 <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />  
+             </bean>  
+         </property> 
+     </bean>  
+
+</beans>  

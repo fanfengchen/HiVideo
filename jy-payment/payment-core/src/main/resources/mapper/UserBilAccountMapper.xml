@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.UserBilAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.UserBilAccount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="account_no" property="accountNo" jdbcType="VARCHAR" />
+    <result column="account_type" property="accountType" jdbcType="VARCHAR" />
+    <result column="account_status" property="accountStatus" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="tips_arrears" property="tipsArrears" jdbcType="CHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account_no, account_type, account_status, user_no, user_name, tips_arrears, user_id, remark,
+    create_time, update_time
+  </sql>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="params.accountNo != null" >
+        and account_no = #{params.accountNo,jdbcType=VARCHAR}
+      </if>
+      <if test="params.accountType != null" >
+        and account_type = #{params.accountType,jdbcType=VARCHAR}
+      </if>
+      <if test="params.accountStatus != null" >
+        and account_status = #{params.accountStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="params.userNo != null" >
+        and user_no = #{params.userNo,jdbcType=VARCHAR}
+      </if>
+      <if test="params.userName != null" >
+        and user_name = #{params.userName,jdbcType=VARCHAR}
+      </if>
+      <if test="params.tipsArrears != null" >
+        and tips_arrears = #{params.tipsArrears,jdbcType=CHAR}
+      </if>
+      <if test="params.userId != null" >
+        and user_id = #{params.userId,jdbcType=VARCHAR}
+      </if>
+      <if test="params.createTime != null" >
+        and create_time = #{params.createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.updateTime != null" >
+        and update_time = #{params.updateTime,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user_bill_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectCountByParams" resultType="int" >
+    select count(*) from tbl_user_bill_account
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectListByParams" resultType="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_user_bill_account
+    <include refid="Example_Where_Clause" />
+    <if test="orderParam != null" >
+      order by ${orderParam}
+    </if>
+    <include refid="common.Pagination_Limit" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_user_bill_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.UserBilAccount" >
+    insert into tbl_user_bill_account (id, account_no, account_type, 
+      account_status, user_no, user_name, 
+      tips_arrears, user_id, create_time, 
+      update_time)
+    values (#{id,jdbcType=BIGINT}, #{accountNo,jdbcType=VARCHAR}, #{accountType,jdbcType=VARCHAR}, 
+      #{accountStatus,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{tipsArrears,jdbcType=CHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.UserBilAccount" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tbl_user_bill_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="accountNo != null" >
+        account_no,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="accountStatus != null" >
+        account_status,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="tipsArrears != null" >
+        tips_arrears,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="accountNo != null" >
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountStatus != null" >
+        #{accountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="tipsArrears != null" >
+        #{tipsArrears,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.UserBilAccount" >
+    update tbl_user_bill_account
+    <set >
+      <if test="accountNo != null" >
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=VARCHAR},
+      </if>
+      <if test="accountStatus != null" >
+        account_status = #{accountStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="tipsArrears != null" >
+        tips_arrears = #{tipsArrears,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.UserBilAccount" >
+    update tbl_user_bill_account
+    set account_no = #{accountNo,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=VARCHAR},
+      account_status = #{accountStatus,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      tips_arrears = #{tipsArrears,jdbcType=CHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="map" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_user_bill_account
+    <include refid="Example_Where_Clause"/>
+  </select>
+  <select id="selectByTips" resultMap="BaseResultMap" parameterType="string">
+    select distinct(user_no),account_type from tbl_user_bill_account where tips_arrears=#{tips}
+  </select>
+  <select id="selectByUserNo" resultMap="BaseResultMap">
+    SELECT user_id from tbl_user_bill_account where user_no=#{userNo} and tips_arrears='1'
+  </select>
+
+  <update id="updateAccountStatus" parameterType="java.lang.String">
+    update tbl_user_bill_account set account_status = #{accountStatus,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR} and user_no = #{userNo,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateAccountTipsArrears">
+    update
+        tbl_user_bill_account
+      set tips_arrears = #{tipsArrears,jdbcType=CHAR}
+    where
+        user_id = #{userId,jdbcType=VARCHAR}
+      and id = #{id,jdbcType=BIGINT}
+      and user_no = #{userNo,jdbcType=VARCHAR}
+      and account_status = #{accountStatus,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateRemarkById">
+    update tbl_user_bill_account
+    set remark = #{remark, jdbcType=VARCHAR}
+    where
+    id = #{id, jdbcType=BIGINT}
+  </update>
+</mapper>

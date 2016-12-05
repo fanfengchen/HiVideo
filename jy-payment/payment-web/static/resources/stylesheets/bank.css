@@ -1,0 +1,21 @@
+.item-list-box ul.item-list {
+  padding-right: 0;
+  font-size: 14px;
+}
+.item-list-box ul.item-list > li {
+  height: 48px;
+  height: 3rem;
+  color: #a6a6a6;
+}
+.item-list-box ul.item-list > li.active {
+  color: #000;
+}
+.item-list-box ul.item-list > li.active > .form-control {
+  visibility: visible;
+}
+.item-list-box ul.item-list > li > .form-control {
+  padding-right: 12px;
+  font-size: 16px;
+  color: #20a4f0;
+  visibility: hidden;
+}

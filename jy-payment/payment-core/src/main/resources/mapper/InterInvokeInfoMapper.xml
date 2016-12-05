@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.InterInvokeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.InterInvokeInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="inter_no" property="interNo" jdbcType="VARCHAR" />
+    <result column="inter_type" property="interType" jdbcType="VARCHAR" />
+    <result column="inter_result" property="interResult" jdbcType="VARCHAR" />
+    <result column="ref_service_no" property="refServiceNo" jdbcType="VARCHAR" />
+    <result column="retry_count" property="retryCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, inter_no, inter_type, inter_result, ref_service_no, retry_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_inter_invoke_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_inter_invoke_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.InterInvokeInfo" >
+    insert into tbl_inter_invoke_info (id, inter_no, inter_type, 
+      inter_result, ref_service_no, retry_count
+      )
+    values (#{id,jdbcType=BIGINT}, #{interNo,jdbcType=VARCHAR}, #{interType,jdbcType=VARCHAR}, 
+      #{interResult,jdbcType=VARCHAR}, #{refServiceNo,jdbcType=VARCHAR}, #{retryCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.InterInvokeInfo" >
+    insert into tbl_inter_invoke_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="interNo != null" >
+        inter_no,
+      </if>
+      <if test="interType != null" >
+        inter_type,
+      </if>
+      <if test="interResult != null" >
+        inter_result,
+      </if>
+      <if test="refServiceNo != null" >
+        ref_service_no,
+      </if>
+      <if test="retryCount != null" >
+        retry_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="interNo != null" >
+        #{interNo,jdbcType=VARCHAR},
+      </if>
+      <if test="interType != null" >
+        #{interType,jdbcType=VARCHAR},
+      </if>
+      <if test="interResult != null" >
+        #{interResult,jdbcType=VARCHAR},
+      </if>
+      <if test="refServiceNo != null" >
+        #{refServiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="retryCount != null" >
+        #{retryCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.InterInvokeInfo" >
+    update tbl_inter_invoke_info
+    <set >
+      <if test="interNo != null" >
+        inter_no = #{interNo,jdbcType=VARCHAR},
+      </if>
+      <if test="interType != null" >
+        inter_type = #{interType,jdbcType=VARCHAR},
+      </if>
+      <if test="interResult != null" >
+        inter_result = #{interResult,jdbcType=VARCHAR},
+      </if>
+      <if test="refServiceNo != null" >
+        ref_service_no = #{refServiceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="retryCount != null" >
+        retry_count = #{retryCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.InterInvokeInfo" >
+    update tbl_inter_invoke_info
+    set inter_no = #{interNo,jdbcType=VARCHAR},
+      inter_type = #{interType,jdbcType=VARCHAR},
+      inter_result = #{interResult,jdbcType=VARCHAR},
+      ref_service_no = #{refServiceNo,jdbcType=VARCHAR},
+      retry_count = #{retryCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

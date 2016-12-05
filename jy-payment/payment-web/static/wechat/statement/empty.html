@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>账单详情</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+
+  <link rel="stylesheet" href="../../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../../resources/js/lib/hogan-3.0.1.min.js"></script>
+  <script src="../../resources/js/baseinfo.js"></script>
+  <script src="../resources/js/xback.js"></script>
+  <script src="../../resources/js/statement/empty.js"></script>
+  <script src="../../resources/js/xback.js"></script>
+
+</head>
+
+<body>
+  <link rel="stylesheet" href="../../resources/stylesheets/statement.css">
+  <div class="views" id="item-list">
+
+    <script type="text/template" id="item">
+        <div class="item-list-box">
+          <div class="item-header">
+            <span class="media">
+            <img src="../../resources/images/{{imgName}}" alt="">
+        </span> {{payName}}
+          </div>
+          <div class="center-icon">
+            <div class="media">
+              <img src="../../resources/images/icon_arrearage.png" alt="">
+            </div>
+            <div class="state">
+              暂未查询到欠费
+            </div>
+          </div>
+          <div>
+            <ul class="item-list">
+              <li>
+                <div class="label">缴费户号</div>
+                <div class="form-control">
+                  {{userNo}}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="btn-box">
+          <button class="ui submit-btn">返回</button>
+        </div>
+    </script>
+
+  </div>
+  <div id="night"></div>
+
+</body>
+
+</html>

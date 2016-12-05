@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>支付成功</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../resources/js/lib/hogan-3.0.1.min.js"></script>
+  <script src="../resources/js/baseinfo.js"></script>
+  <script src="../resources/js/xback.js"></script>
+
+</head>
+
+<body>
+  <div class="views">
+    <link rel="stylesheet" href="../resources/stylesheets/success.css">
+    <div class="header">
+
+    </div>
+    <div>
+      <div class="board" id="contentBody">
+        <div class="center-icon">
+          <div><i class="check circle icon"></i>
+          </div>
+          <div class="state">
+            支付成功
+          </div>
+          <div class="name">
+            江油鸿飞集团
+          </div>
+          <div class="price">
+            &yen;<span id="free"></span>
+          </div>
+        </div>
+        <div class="inner">
+          <ul class="item-list">
+            <li>
+              <div class="label">缴费金额</div>
+              <div class="form-control">
+
+              </div>
+            </li>
+            <li>
+              <div class="label">户号</div>
+              <div class="form-control"></div>
+            </li>
+            <li>
+              <div class="label">交易单号</div>
+              <div class="form-control"></div>
+            </li>
+            <li>
+              <div class="label">交易时间</div>
+              <div class="form-control"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <script type="text/template" id="content">
+      <div class="board">
+        <div class="center-icon">
+          <div><i class="check circle icon"></i>
+          </div>
+          <div class="state">
+            支付成功
+          </div>
+          <div class="name">
+            江油鸿飞集团
+          </div>
+          <div class="price">
+            &yen;<span>{{free}}</span>
+          </div>
+        </div>
+        <div class="inner">
+          <ul class="item-list">
+            <li>
+              <div class="label">支付成功</div>
+              <div class="form-control">
+                {{free}}
+              </div>
+            </li>
+            <li>
+              <div class="label">户号</div>
+              <div class="form-control">{{payAccountNo}}</div>
+            </li>
+            <li>
+              <div class="label">交易单号</div>
+              <div class="form-control">{{orderNo}}</div>
+            </li>
+            <li>
+              <div class="label">交易时间</div>
+              <div class="form-control">{{paySuccTime}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      </script>
+      <div class="hint-bar">
+        欠费停水(停气)用户在缴清欠费后：
+        <br>
+        <span class="link">请拨打24小时热线电话:902011</span>申请开通水(气)表。工作人员会在接到通知后一个工作日内开通水(气)
+      </div>
+      <div class="submit-box">
+        <button class="ui submit-btn" id="btn">确定</button>
+      </div>
+    </div>
+    <div id="night"></div>
+
+    <script type="text/javascript">
+      var params = getUrlParameters();
+      var orderNo = params.orderNo||"";
+      $.ajax({
+        type:'post',
+        data:{
+          'orderNo':orderNo
+        },
+        url:preUrl+'/getOrderNo',
+        success: function (data) {
+          if(data.rspCode=='101'){
+            alert(data.rspMsg);
+          }else{
+            dataInfo(data.data);
+          }
+
+        }
+      })
+
+      function dataInfo(data) {
+        var text = $("#content").text();
+        var template = Hogan.compile(text);
+        var render = template.render(data);
+        $("#contentBody").html(render);
+      }
+
+      $('#btn').click(function(){
+        window.location.href='http://wx.jiangyoutong.com//static/wechat/menu/target-history.html';
+      })
+
+    </script>
+</body>
+
+</html>

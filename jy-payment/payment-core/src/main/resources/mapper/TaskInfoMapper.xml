@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.TaskInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.TaskInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="task_no" property="taskNo" jdbcType="VARCHAR" />
+    <result column="task_server_no" property="taskServerNo" jdbcType="VARCHAR" />
+    <result column="task_retry_count" property="taskRetryCount" jdbcType="INTEGER" />
+    <result column="task_result" property="taskResult" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, task_no, task_server_no, task_retry_count, task_result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_task_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_task_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.TaskInfo" >
+    insert into tbl_task_info (id, task_no, task_server_no, 
+      task_retry_count, task_result)
+    values (#{id,jdbcType=BIGINT}, #{taskNo,jdbcType=VARCHAR}, #{taskServerNo,jdbcType=VARCHAR}, 
+      #{taskRetryCount,jdbcType=INTEGER}, #{taskResult,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.TaskInfo" >
+    insert into tbl_task_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="taskNo != null" >
+        task_no,
+      </if>
+      <if test="taskServerNo != null" >
+        task_server_no,
+      </if>
+      <if test="taskRetryCount != null" >
+        task_retry_count,
+      </if>
+      <if test="taskResult != null" >
+        task_result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="taskNo != null" >
+        #{taskNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskServerNo != null" >
+        #{taskServerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRetryCount != null" >
+        #{taskRetryCount,jdbcType=INTEGER},
+      </if>
+      <if test="taskResult != null" >
+        #{taskResult,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.TaskInfo" >
+    update tbl_task_info
+    <set >
+      <if test="taskNo != null" >
+        task_no = #{taskNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskServerNo != null" >
+        task_server_no = #{taskServerNo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRetryCount != null" >
+        task_retry_count = #{taskRetryCount,jdbcType=INTEGER},
+      </if>
+      <if test="taskResult != null" >
+        task_result = #{taskResult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.TaskInfo" >
+    update tbl_task_info
+    set task_no = #{taskNo,jdbcType=VARCHAR},
+      task_server_no = #{taskServerNo,jdbcType=VARCHAR},
+      task_retry_count = #{taskRetryCount,jdbcType=INTEGER},
+      task_result = #{taskResult,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByResult" resultType="list" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_task_info
+    where task_result = #{taskResult,jdbcType=VARCHAR}
+  </select>
+</mapper>

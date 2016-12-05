@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../../resources/js/lib/hogan-3.0.1.min.js"></script>
+    <script src="../../resources/js/baseinfo.js"></script>
+    <!-- <script src="/resources/js/search/history.js"></script> -->
+    <script src="../../resources/js/search/history.js"></script>
+</head>
+
+<body>
+    <div class="header">
+      <a href="javascript:;" class="link pull-right" id="show_filter">筛选</a>
+    </div>
+  <div class="views">
+    <link rel="stylesheet" href="../../resources/stylesheets/history.css?v=2">
+
+    <!--<div class="wrapper" id="item-list">
+        <div class="center-icon">
+            <div class="media">
+                <img src="../../resources/images/icon_arrearage.png" alt="">
+            </div>
+            <div class="state">
+                暂无缴费记录
+            </div>
+        </div>
+    </div>-->
+
+      <div class="wrapper" id="item-list">
+               
+      </div>
+
+      <div class="wrapper" id="item-list-result">
+
+      </div>
+
+      <script type="text/template" id="noResult">
+          <div class="center-icon hides">
+              <div class="media">
+                  <img src="../../resources/images/icon_arrearage.png" alt="">
+              </div>
+              <div class="state">
+                  暂无缴费记录
+              </div>
+          </div>
+      </script>
+
+    <script type="text/template" id="item">
+        {{#item}}
+        <div class="block">
+      		{{payMonth}}
+      	</div>
+
+      	<div class="item-board">
+            {{#list}}
+      		<a class="item-link" href="#">
+      			<div class="item-media">
+                    <img src="../../resources/images/{{icon}}" alt="">
+      			</div>
+      			<div class="item-inner">
+      				<div class="main">
+      					<div class="item-title">
+                      金额: {{orderAmt}}
+      					</div>
+      					<div class="item-hint">
+									<div><span>户号:{{payAccountNo}}</span></div>
+									<div>订单号:{{orderNo}}</div>
+      					</div>
+      				</div>
+      			</div>
+      			<div class="item-right">
+      				<div class="state">
+      					<span id="states">{{state}}</span><!--<i class="angle right icon"></i>-->
+      				</div>
+      				<div class="time">
+      					{{payTime}}
+      				</div>
+      			</div>
+      		</a>
+            {{/list}}
+      	</div>
+        {{/item}}
+    </script>
+
+
+  </div>
+  <div id="night">
+    <div class="header">
+      <a href="javascript:;" class="link pull-right" id="hide_filter">取消</a>
+    </div>   
+    <div class="dropdown">
+      <ul>
+        <li>
+          <span class="media">
+				<img src="../../resources/images/icon_water.png" alt="">				
+			</span>
+          <span class="name" data-type="01" >自来水缴费</span>
+        </li>
+        <li>
+          <span class="media">
+				<img src="../../resources/images/icon_watermeter.png" alt="">					
+			</span>
+          <span class="name" data-type="02" >远程水表充值</span>
+        </li>
+        <li>
+          <span class="media">
+				<img src="../../resources/images/icon_naturalgas.png" alt="">				
+			</span>
+          <span class="name" data-type="03" >天然气缴费</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.PayInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.PayInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+    <result column="pay_result" property="payResult" jdbcType="VARCHAR" />
+    <result column="pay_info" property="payInfo" jdbcType="VARCHAR" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="out_transaction_id" property="outTransactionId" jdbcType="VARCHAR" />
+    <result column="out_trade_no" property="outTradeNo" jdbcType="VARCHAR" />
+    <result column="total_fee" property="totalFee" jdbcType="INTEGER" />
+    <result column="coupon_fee" property="couponFee" jdbcType="INTEGER" />
+    <result column="fee_type" property="feeType" jdbcType="VARCHAR" />
+    <result column="attach" property="attach" jdbcType="VARCHAR" />
+    <result column="bank_type" property="bankType" jdbcType="VARCHAR" />
+    <result column="bank_billno" property="bankBillno" jdbcType="VARCHAR" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="pay_time" property="payTime" jdbcType="VARCHAR" />
+    <result column="trade_state" property="tradeState" jdbcType="VARCHAR" />
+    <result column="out_refund_no" property="outRefundNo" jdbcType="VARCHAR" />
+    <result column="refund_id" property="refundId" jdbcType="VARCHAR" />
+    <result column="refund_channel" property="refundChannel" jdbcType="VARCHAR" />
+    <result column="refund_fee" property="refundFee" jdbcType="INTEGER" />
+    <result column="coupon_refund_fee" property="couponRefundFee" jdbcType="INTEGER" />
+    <result column="refund_time" property="refundTime" jdbcType="VARCHAR" />
+    <result column="refund_status" property="refundStatus" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+    <result column="reserve3" property="reserve3" jdbcType="VARCHAR" />
+    <result column="reserve4" property="reserve4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, trade_type, pay_result, pay_info, transaction_id, out_transaction_id, 
+    out_trade_no, total_fee, coupon_fee, fee_type, attach, bank_type, bank_billno, pay_status, 
+    pay_time, trade_state, out_refund_no, refund_id, refund_channel, refund_fee, coupon_refund_fee, 
+    refund_time, refund_status, create_time, update_time, remark, reserve1, reserve2, 
+    reserve3, reserve4
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_pay_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByOrderNo" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM tbl_pay_info where out_trade_no=#{orderNo}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_pay_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.PayInfo" >
+    insert into tbl_pay_info (id, order_id, trade_type, 
+      pay_result, pay_info, transaction_id, 
+      out_transaction_id, out_trade_no, total_fee, 
+      coupon_fee, fee_type, attach, 
+      bank_type, bank_billno, pay_status, 
+      pay_time, trade_state, out_refund_no, 
+      refund_id, refund_channel, refund_fee, 
+      coupon_refund_fee, refund_time, refund_status, 
+      create_time, update_time, remark, 
+      reserve1, reserve2, reserve3, 
+      reserve4)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{tradeType,jdbcType=VARCHAR}, 
+      #{payResult,jdbcType=VARCHAR}, #{payInfo,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, 
+      #{outTransactionId,jdbcType=VARCHAR}, #{outTradeNo,jdbcType=VARCHAR}, #{totalFee,jdbcType=INTEGER}, 
+      #{couponFee,jdbcType=INTEGER}, #{feeType,jdbcType=VARCHAR}, #{attach,jdbcType=VARCHAR}, 
+      #{bankType,jdbcType=VARCHAR}, #{bankBillno,jdbcType=VARCHAR}, #{payStatus,jdbcType=VARCHAR}, 
+      #{payTime,jdbcType=VARCHAR}, #{tradeState,jdbcType=VARCHAR}, #{outRefundNo,jdbcType=VARCHAR}, 
+      #{refundId,jdbcType=VARCHAR}, #{refundChannel,jdbcType=VARCHAR}, #{refundFee,jdbcType=INTEGER}, 
+      #{couponRefundFee,jdbcType=INTEGER}, #{refundTime,jdbcType=VARCHAR}, #{refundStatus,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{reserve1,jdbcType=VARCHAR}, #{reserve2,jdbcType=VARCHAR}, #{reserve3,jdbcType=VARCHAR}, 
+      #{reserve4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.PayInfo" >
+    insert into tbl_pay_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="payResult != null" >
+        pay_result,
+      </if>
+      <if test="payInfo != null" >
+        pay_info,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="outTransactionId != null" >
+        out_transaction_id,
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no,
+      </if>
+      <if test="totalFee != null" >
+        total_fee,
+      </if>
+      <if test="couponFee != null" >
+        coupon_fee,
+      </if>
+      <if test="feeType != null" >
+        fee_type,
+      </if>
+      <if test="attach != null" >
+        attach,
+      </if>
+      <if test="bankType != null" >
+        bank_type,
+      </if>
+      <if test="bankBillno != null" >
+        bank_billno,
+      </if>
+      <if test="payStatus != null" >
+        pay_status,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="tradeState != null" >
+        trade_state,
+      </if>
+      <if test="outRefundNo != null" >
+        out_refund_no,
+      </if>
+      <if test="refundId != null" >
+        refund_id,
+      </if>
+      <if test="refundChannel != null" >
+        refund_channel,
+      </if>
+      <if test="refundFee != null" >
+        refund_fee,
+      </if>
+      <if test="couponRefundFee != null" >
+        coupon_refund_fee,
+      </if>
+      <if test="refundTime != null" >
+        refund_time,
+      </if>
+      <if test="refundStatus != null" >
+        refund_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="reserve1 != null" >
+        reserve1,
+      </if>
+      <if test="reserve2 != null" >
+        reserve2,
+      </if>
+      <if test="reserve3 != null" >
+        reserve3,
+      </if>
+      <if test="reserve4 != null" >
+        reserve4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="payResult != null" >
+        #{payResult,jdbcType=VARCHAR},
+      </if>
+      <if test="payInfo != null" >
+        #{payInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTransactionId != null" >
+        #{outTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null" >
+        #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="couponFee != null" >
+        #{couponFee,jdbcType=INTEGER},
+      </if>
+      <if test="feeType != null" >
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBillno != null" >
+        #{bankBillno,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeState != null" >
+        #{tradeState,jdbcType=VARCHAR},
+      </if>
+      <if test="outRefundNo != null" >
+        #{outRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        #{refundId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundChannel != null" >
+        #{refundChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="refundFee != null" >
+        #{refundFee,jdbcType=INTEGER},
+      </if>
+      <if test="couponRefundFee != null" >
+        #{couponRefundFee,jdbcType=INTEGER},
+      </if>
+      <if test="refundTime != null" >
+        #{refundTime,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null" >
+        #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null" >
+        #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null" >
+        #{reserve4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.PayInfo" >
+    update tbl_pay_info
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=VARCHAR},
+      </if>
+      <if test="payResult != null" >
+        pay_result = #{payResult,jdbcType=VARCHAR},
+      </if>
+      <if test="payInfo != null" >
+        pay_info = #{payInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTransactionId != null" >
+        out_transaction_id = #{outTransactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null" >
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="couponFee != null" >
+        coupon_fee = #{couponFee,jdbcType=INTEGER},
+      </if>
+      <if test="feeType != null" >
+        fee_type = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        bank_type = #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankBillno != null" >
+        bank_billno = #{bankBillno,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        pay_status = #{payStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeState != null" >
+        trade_state = #{tradeState,jdbcType=VARCHAR},
+      </if>
+      <if test="outRefundNo != null" >
+        out_refund_no = #{outRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        refund_id = #{refundId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundChannel != null" >
+        refund_channel = #{refundChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="refundFee != null" >
+        refund_fee = #{refundFee,jdbcType=INTEGER},
+      </if>
+      <if test="couponRefundFee != null" >
+        coupon_refund_fee = #{couponRefundFee,jdbcType=INTEGER},
+      </if>
+      <if test="refundTime != null" >
+        refund_time = #{refundTime,jdbcType=VARCHAR},
+      </if>
+      <if test="refundStatus != null" >
+        refund_status = #{refundStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null" >
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve3 != null" >
+        reserve3 = #{reserve3,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve4 != null" >
+        reserve4 = #{reserve4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+    <if test="oldPayStatus!=null">
+      and PAY_STATUS=#{oldPayStatus}
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.PayInfo" >
+    update tbl_pay_info
+    set order_id = #{orderId,jdbcType=BIGINT},
+      trade_type = #{tradeType,jdbcType=VARCHAR},
+      pay_result = #{payResult,jdbcType=VARCHAR},
+      pay_info = #{payInfo,jdbcType=VARCHAR},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      out_transaction_id = #{outTransactionId,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      total_fee = #{totalFee,jdbcType=INTEGER},
+      coupon_fee = #{couponFee,jdbcType=INTEGER},
+      fee_type = #{feeType,jdbcType=VARCHAR},
+      attach = #{attach,jdbcType=VARCHAR},
+      bank_type = #{bankType,jdbcType=VARCHAR},
+      bank_billno = #{bankBillno,jdbcType=VARCHAR},
+      pay_status = #{payStatus,jdbcType=VARCHAR},
+      pay_time = #{payTime,jdbcType=VARCHAR},
+      trade_state = #{tradeState,jdbcType=VARCHAR},
+      out_refund_no = #{outRefundNo,jdbcType=VARCHAR},
+      refund_id = #{refundId,jdbcType=VARCHAR},
+      refund_channel = #{refundChannel,jdbcType=VARCHAR},
+      refund_fee = #{refundFee,jdbcType=INTEGER},
+      coupon_refund_fee = #{couponRefundFee,jdbcType=INTEGER},
+      refund_time = #{refundTime,jdbcType=VARCHAR},
+      refund_status = #{refundStatus,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR},
+      reserve3 = #{reserve3,jdbcType=VARCHAR},
+      reserve4 = #{reserve4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

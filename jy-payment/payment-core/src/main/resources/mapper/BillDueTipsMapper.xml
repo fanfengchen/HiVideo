@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.BillDueTipsMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.BillDueTips" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account_no" property="accountNo" jdbcType="VARCHAR" />
+    <result column="acc_name" property="accName" jdbcType="VARCHAR" />
+    <result column="acc_address" property="accAddress" jdbcType="VARCHAR" />
+    <result column="acc_mobile" property="accMobile" jdbcType="VARCHAR" />
+    <result column="settle_month" property="settleMonth" jdbcType="VARCHAR" />
+    <result column="use_amount" property="useAmount" jdbcType="VARCHAR" />
+    <result column="end_reads" property="endReads" jdbcType="VARCHAR" />
+    <result column="start_reads" property="startReads" jdbcType="VARCHAR" />
+    <result column="start_month" property="startMonth" jdbcType="VARCHAR" />
+    <result column="due_amt" property="dueAmt" jdbcType="VARCHAR" />
+    <result column="push_date" property="pushDate" jdbcType="TIMESTAMP" />
+    <result column="push_sts" property="pushSts" jdbcType="VARCHAR" />
+    <result column="push_contents" property="pushContents" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account_no, acc_name, acc_address, acc_mobile, settle_month, use_amount, end_reads, 
+    start_reads, start_month, due_amt, push_date, push_sts, push_contents
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_bill_due_tips
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_bill_due_tips
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.BillDueTips" >
+    insert into tbl_bill_due_tips (id, account_no, acc_name, 
+      acc_address, acc_mobile, settle_month, 
+      use_amount, end_reads, start_reads, 
+      start_month, due_amt, push_date, 
+      push_sts, push_contents)
+    values (#{id,jdbcType=INTEGER}, #{accountNo,jdbcType=VARCHAR}, #{accName,jdbcType=VARCHAR}, 
+      #{accAddress,jdbcType=VARCHAR}, #{accMobile,jdbcType=VARCHAR}, #{settleMonth,jdbcType=VARCHAR}, 
+      #{useAmount,jdbcType=VARCHAR}, #{endReads,jdbcType=VARCHAR}, #{startReads,jdbcType=VARCHAR}, 
+      #{startMonth,jdbcType=VARCHAR}, #{dueAmt,jdbcType=VARCHAR}, #{pushDate,jdbcType=TIMESTAMP}, 
+      #{pushSts,jdbcType=VARCHAR}, #{pushContents,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.BillDueTips"  useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_bill_due_tips
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountNo != null" >
+        account_no,
+      </if>
+      <if test="accName != null" >
+        acc_name,
+      </if>
+      <if test="accAddress != null" >
+        acc_address,
+      </if>
+      <if test="accMobile != null" >
+        acc_mobile,
+      </if>
+      <if test="settleMonth != null" >
+        settle_month,
+      </if>
+      <if test="useAmount != null" >
+        use_amount,
+      </if>
+      <if test="endReads != null" >
+        end_reads,
+      </if>
+      <if test="startReads != null" >
+        start_reads,
+      </if>
+      <if test="startMonth != null" >
+        start_month,
+      </if>
+      <if test="dueAmt != null" >
+        due_amt,
+      </if>
+      <if test="pushDate != null" >
+        push_date,
+      </if>
+      <if test="pushSts != null" >
+        push_sts,
+      </if>
+      <if test="pushContents != null" >
+        push_contents,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountNo != null" >
+        #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accAddress != null" >
+        #{accAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="accMobile != null" >
+        #{accMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMonth != null" >
+        #{settleMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="useAmount != null" >
+        #{useAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="endReads != null" >
+        #{endReads,jdbcType=VARCHAR},
+      </if>
+      <if test="startReads != null" >
+        #{startReads,jdbcType=VARCHAR},
+      </if>
+      <if test="startMonth != null" >
+        #{startMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dueAmt != null" >
+        #{dueAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="pushDate != null" >
+        #{pushDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushSts != null" >
+        #{pushSts,jdbcType=VARCHAR},
+      </if>
+      <if test="pushContents != null" >
+        #{pushContents,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch" parameterType="list">
+    insert into tbl_bill_due_tips
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="accountNo != null" >
+        account_no,
+      </if>
+      <if test="accName != null" >
+        acc_name,
+      </if>
+      <if test="accAddress != null" >
+        acc_address,
+      </if>
+      <if test="accMobile != null" >
+        acc_mobile,
+      </if>
+      <if test="settleMonth != null" >
+        settle_month,
+      </if>
+      <if test="useAmount != null" >
+        use_amount,
+      </if>
+      <if test="endReads != null" >
+        end_reads,
+      </if>
+      <if test="startReads != null" >
+        start_reads,
+      </if>
+      <if test="startMonth != null" >
+        start_month,
+      </if>
+      <if test="dueAmt != null" >
+        due_amt,
+      </if>
+      <if test="pushDate != null" >
+        push_date,
+      </if>
+      <if test="pushSts != null" >
+        push_sts,
+      </if>
+      <if test="pushContents != null" >
+        push_contents,
+      </if>
+    </trim>
+    <foreach collection="list" item="item" index="index" separator="," >
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="id != null" >
+          #{item.id,jdbcType=INTEGER},
+        </if>
+        <if test="accountNo != null" >
+          #{item.accountNo,jdbcType=VARCHAR},
+        </if>
+        <if test="accName != null" >
+          #{item.accName,jdbcType=VARCHAR},
+        </if>
+        <if test="accAddress != null" >
+          #{item.accAddress,jdbcType=VARCHAR},
+        </if>
+        <if test="accMobile != null" >
+          #{item.accMobile,jdbcType=VARCHAR},
+        </if>
+        <if test="settleMonth != null" >
+          #{item.settleMonth,jdbcType=VARCHAR},
+        </if>
+        <if test="useAmount != null" >
+          #{item.useAmount,jdbcType=VARCHAR},
+        </if>
+        <if test="endReads != null" >
+          #{item.endReads,jdbcType=VARCHAR},
+        </if>
+        <if test="startReads != null" >
+          #{item.startReads,jdbcType=VARCHAR},
+        </if>
+        <if test="startMonth != null" >
+          #{item.startMonth,jdbcType=VARCHAR},
+        </if>
+        <if test="dueAmt != null" >
+          #{item.dueAmt,jdbcType=VARCHAR},
+        </if>
+        <if test="pushDate != null" >
+          #{item.pushDate,jdbcType=TIMESTAMP},
+        </if>
+        <if test="pushSts != null" >
+          #{item.pushSts,jdbcType=VARCHAR},
+        </if>
+        <if test="pushContents != null" >
+          #{item.pushContents,jdbcType=VARCHAR},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.BillDueTips" >
+    update tbl_bill_due_tips
+    <set >
+      <if test="accountNo != null" >
+        account_no = #{accountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accName != null" >
+        acc_name = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accAddress != null" >
+        acc_address = #{accAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="accMobile != null" >
+        acc_mobile = #{accMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="settleMonth != null" >
+        settle_month = #{settleMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="useAmount != null" >
+        use_amount = #{useAmount,jdbcType=VARCHAR},
+      </if>
+      <if test="endReads != null" >
+        end_reads = #{endReads,jdbcType=VARCHAR},
+      </if>
+      <if test="startReads != null" >
+        start_reads = #{startReads,jdbcType=VARCHAR},
+      </if>
+      <if test="startMonth != null" >
+        start_month = #{startMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dueAmt != null" >
+        due_amt = #{dueAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="pushDate != null" >
+        push_date = #{pushDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushSts != null" >
+        push_sts = #{pushSts,jdbcType=VARCHAR},
+      </if>
+      <if test="pushContents != null" >
+        push_contents = #{pushContents,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.BillDueTips" >
+    update tbl_bill_due_tips
+    set account_no = #{accountNo,jdbcType=VARCHAR},
+      acc_name = #{accName,jdbcType=VARCHAR},
+      acc_address = #{accAddress,jdbcType=VARCHAR},
+      acc_mobile = #{accMobile,jdbcType=VARCHAR},
+      settle_month = #{settleMonth,jdbcType=VARCHAR},
+      use_amount = #{useAmount,jdbcType=VARCHAR},
+      end_reads = #{endReads,jdbcType=VARCHAR},
+      start_reads = #{startReads,jdbcType=VARCHAR},
+      start_month = #{startMonth,jdbcType=VARCHAR},
+      due_amt = #{dueAmt,jdbcType=VARCHAR},
+      push_date = #{pushDate,jdbcType=TIMESTAMP},
+      push_sts = #{pushSts,jdbcType=VARCHAR},
+      push_contents = #{pushContents,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

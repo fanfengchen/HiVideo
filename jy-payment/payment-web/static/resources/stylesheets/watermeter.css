@@ -1,0 +1,152 @@
+.weter-board {
+  background-color: #FCFCFC;
+  margin-top: 10px;
+  margin-top: 0.625rem;
+}
+.weter-board .weter-header {
+  padding: 6px 15px;
+  padding: 0.375rem 0.9375rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+.weter-board .weter-header > img {
+  width: 35px;
+  width: 2.1875rem;
+  vertical-align: middle;
+}
+.weter-board .bill-board {
+  padding: 8px 0px 8px 15px;
+  padding: 0.5rem 0rem 0.5rem 0.9375rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+.weter-board .bill-board .bill-userID .userID-name {
+  margin: 0px;
+  margin: 0rem;
+}
+.weter-board .bill-board .bill-userID .userID-name .userID {
+  margin-left: 15px;
+  margin-left: 0.9375rem;
+}
+.weter-board .bill-board .binding-bill {
+  margin-top: 8px;
+  margin-top: 0.5rem;
+}
+.weter-board .bill-board .binding-bill > p {
+  padding: 0px;
+  padding: 0rem;
+  margin: 0px;
+  margin: 0rem;
+}
+.weter-board .bill-board .binding-bill .binding-info {
+  font-size: 12px;
+  font-size: 0.75rem;
+  color: #b3b3b3;
+}
+.weter-board .information {
+  padding-left: 15px;
+  padding-left: 0.9375rem;
+}
+.weter-board .information .infor-list {
+  padding: 10px 0px;
+  padding: 0.625rem 0rem;
+}
+.weter-board .information .infor-list .infor-num {
+  float: right;
+  margin-right: 15px;
+  margin-right: 0.9375rem;
+  color: #b3b3b3;
+}
+.weter-board .information .infor-list + .infor-list {
+  border-top: 1px solid #e6e6e6;
+}
+.btn-default {
+  width: 100%;
+  padding: 0px 15px;
+  padding: 0rem 0.9375rem;
+  margin-top: 30px;
+  margin-top: 1.875rem;
+}
+.btn-default button.btn {
+  background-color: #20A4EF;
+  width: 100%;
+  color: #fff;
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+  padding: 10px 0px;
+  padding: 0.625rem 0rem;
+}
+.payment-board {
+  background-color: #FCFCFC;
+  padding-left: 15px;
+  padding-left: 0.9375rem;
+}
+.payment-board .fixation > p.label {
+  margin: 0px;
+  margin: 0rem;
+  padding: 12px 0px;
+  padding: 0.75rem 0rem;
+}
+.payment-board .fixation ul.fix-group {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.payment-board .fixation ul.fix-group li.fix-num {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  border: 1px solid #20A4EF;
+  margin-right: 12px;
+  margin-right: 0.75rem;
+  color: #20A4EF;
+  padding: 6px 0px;
+  padding: 0.375rem 0rem;
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+}
+.payment-board .fixation ul.fix-group li.fix-num.active {
+  background-color: #20A4EF;
+  color: #fff;
+}
+.payment-board .define {
+  margin-top: 20px;
+  margin-top: 1.25rem;
+}
+.payment-board .define .define-name {
+  margin: 0px;
+  margin: 0rem;
+  padding: 8px 0px;
+  padding: 0.5rem 0rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+.payment-board .define .define-content {
+  padding: 10px 0px;
+  padding: 0.625rem 0rem;
+}
+.payment-board .define .define-content > img {
+  width: 30px;
+  width: 1.875rem;
+  vertical-align: middle;
+}
+.payment-board .define .define-content > input {
+  float: right;
+  margin: 3px 15px 0px 0px;
+  margin: 0.1875rem 0.9375rem 0rem 0rem;
+  border: none;
+  outline: none;
+  width: 215px;
+  width: 13.4375rem;
+  text-align: right;
+}

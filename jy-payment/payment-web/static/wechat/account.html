@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+	<title>账户管理</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../resources/js/lib/hogan-3.0.1.min.js"></script>
+	<script type="text/javascript" src="../resources/js/baseinfo.js"></script>
+	<script src="../resources/js/account.js"></script>
+
+</head>
+
+<body>
+  <div class="views">
+    <link rel="stylesheet" href="../resources/stylesheets/account.css">
+    <div class="header">
+      <a href="javascript:;" class="link pull-right">账户管理</a>
+    </div>
+    <div class="block">
+      缴费账户
+    </div>
+    <div class="item-board" id="item-board">
+    </div>
+    <div class="toolbar submit-toolbar">
+      <span class="link" id="clickSpan"><i class="plus icon"></i>新增缴费</span>
+    </div>
+
+    <script type="text/template" id="item">
+      {{#item}}
+      	<a class="item-link" href="#">
+			<input type="hidden" tipsArrears="tipsArrears" value="{{tipsArrears}}">
+            <input type="hidden" userBillAccountId="userBillAccountId" value="{{id}}">
+      		<div class="item-media">
+      			<img src="../resources/images/{{icon}}" alt="">
+      		</div>	
+      		<div class="item-inner">
+      			<div class="main">
+      				<div class="item-title">
+      					{{name}}
+      				</div>		
+      				<div class="item-hint">
+      					<span>{{userNo}}</span>
+						<input type="hidden" accountType="accountType" value="{{accountType}}">
+      				</div>
+                    <div class="item-note" updateRemark="updateRemark">
+
+                    </div>
+                </div>
+      			<div class="item-note"  remark="remark">
+                    {{remark}}
+      			</div>
+      		</div>
+      		<i class="angle right icon"></i>		
+      	</a>	
+      {{/item}}
+    </script>
+
+    <script type="text/template" id="control">
+      <div class="item-right">
+          <div class="btn edit">
+            <i class="edit edit-active"></i>
+          </div>
+      		<div class="btn delete">
+      			<i class="delete"></i>					
+      		</div>	
+					<div class="form-contrl btn">
+						<span>提醒</span>
+						<label class="label-switch">
+							<input type="checkbox" checked="checked" class="control switch">
+							<div class="checkbox"></div>
+						</label>
+					</div>					
+      	</div>
+    </script>
+  </div>
+  <div id="night"></div>
+  <div class="comment-out comActive">
+    <div class="comment-bg"></div>
+    <div class="comment">
+      <div class="comment-title" id="updateRemarkTitle"></div>
+      <input type="hidden" id="updateRemarkId" value=""/>
+      <input type="text" id="remark"/>
+      <div class="comment-bar">
+        <div class="bar-cancel">取消</div>
+        <div class="bar-confirm">确定</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

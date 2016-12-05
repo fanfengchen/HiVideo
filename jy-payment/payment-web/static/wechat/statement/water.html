@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+	<title>自来水账单</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../../resources/stylesheets/common.css">
+  <!-- <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script> -->
+  <script src="../../resources/js/lib/jquery-1.11.2.min.js"></script>
+  <script src="../../resources/js/lib/hogan-3.0.1.min.js"></script>
+	<script src="../../resources/js/baseinfo.js"></script>
+	<script src="../../resources/js/statement/water.js"></script>
+
+</head>
+
+<body>
+  <div class="views">
+    <link rel="stylesheet" href="../../resources/stylesheets/statement.css">
+
+    <div class="main-box">
+      <!--<div class="header">
+        <i class="angle double left icon"></i>
+      </div>-->
+		<!--保存提醒按钮div-->
+      <div class="item-list-box switch" id="button-div">
+
+      </div>
+      
+      <!-- 新增姓名和地址 -->
+		<!-- 新增姓名和地址 -->
+		<div class="item-list-box" id="user-info-html">
+
+		</div>
+      <!-- 欠费账单信息 -->
+      <div id="item-list"></div>
+      <!-- 缴费户号等基本信息 -->
+      <div id="baseInfo-content"></div>
+
+      
+    </div>
+
+	  <!--保存提醒按钮-->
+	  <script type="text/template" id="item-button">
+	  <ul class="item-list">
+		  <li>
+			  <div class="label">缴费提醒</div>
+			  <div class="form-control">
+				  <label class="label-switch">
+					  <input type="checkbox" checked="checked" class="control switch" id="tipsArrears">
+					  <div class="checkbox"></div>
+				  </label>
+			  </div>
+		  </li>
+		  <li>
+			  <div class="label">保存账号</div>
+			  <div class="form-control">
+				  <label class="label-switch">
+					  <input type="checkbox" checked="checked" class="control switch" id="isRecord">
+					  <div class="checkbox"></div>
+				  </label>
+			  </div>
+		  </li>
+	  </ul>
+	  </script>
+
+    <script type="text/template" id="item">
+      {{#item}}
+      <div class="item-list-box">
+      		<div class="item-header">
+      			<span class="media">
+      			<img src="../../resources/images/icon_waterbox.png" alt="">
+      		</span> {{monthStr}}自来水账单
+      		</div>
+      		<div>
+      			<ul class="item-list">
+      				<li>
+      					<div class="label">缴费号</div>
+      					<div class="form-control">
+      						{{userNo}}
+      					</div>
+      				</li>
+      				<li>
+      					<div class="label">起码</div>
+      					<div class="form-control">
+      						{{startNum}}
+      					</div>
+      				</li>
+      				<li>
+      					<div class="label">止码</div>
+      					<div class="form-control">
+      						{{endNum}}
+      					</div>
+      				</li>
+      				<li>
+      					<div class="label">用量</div>
+      					<div class="form-control">
+      						{{totalPowe}}
+      					</div>
+      				</li>
+      				<li>
+      					<div class="label">欠费额</div>
+      					<div class="form-control light-red">
+      						{{shouldMoney}}
+      					</div>
+      				</li>
+      				<li>
+      					<div class="label">违约金</div>
+      					<div class="form-control light-red">
+      						{{punishMoney}}
+      					</div>
+      				</li>
+      				<!--<li>
+      					<div class="label">上次余额</div>
+      					<div class="form-control light">
+      						{{balance}}
+      					</div>
+      				</li>	-->
+      				<li>
+      					<div class="label">小计金额</div>
+      					<div class="form-control light">
+      						{{money}}
+      					</div>
+      				</li>
+      			</ul>
+      		</div>
+      	</div>
+        {{/item}}
+    </script>
+	  <script type="text/template" id="user-info">
+		  <ul class="item-list">
+			  <li>
+				  <div class="label">户名</div>
+				  <div class="form-control">{{userName}}</div>
+			  </li>
+			  <li>
+				  <div class="label">地址</div>
+				  <div class="form-control">{{address}}</div>
+			  </li>
+			  <li>
+				  <div class="label">备注</div>
+				  <div class="form-control">{{remark}}</div>
+			  </li>
+		  </ul>
+	  </script>
+    <!--<script type="text/template" id="baseInfo">
+      <div class="item-list-box">
+      		<ul class="item-list">
+      			<li>
+      				<div class="label">缴费户号</div>
+      				<div class="form-control">
+      					8484284
+      				</div>
+      			</li>
+      			<li>
+      				<div class="label">住址信息</div>
+      				<div class="form-control">
+      					8484284
+      				</div>
+      			</li>
+      			<li>
+      				<div class="label">备注名</div>
+      				<div class="form-control">
+      					8484284
+      				</div>
+      			</li>
+      			<li>
+      				<div class="label">欠费月份</div>
+      				<div class="form-control">
+      					8484284
+      				</div>
+      			</li>
+      			<li>
+      				<div class="label">自动缴费</div>
+      				<div class="form-control">
+      					关
+      				</div>
+      			</li>
+      		</ul>
+      	</div>
+    </script>-->
+  </div>
+  <div class="submit-box">
+        <div class="content">
+          <div class="name">
+            合计金额
+          </div>
+          <div class="des">
+            &yen;<span class="price" id="totalMoney"></span><span class="note">(含所有账单)</span>
+          </div>
+        </div>
+        <button id="sumbit">确认付款</button>
+      </div>
+  <div id="night"></div>
+
+</body>
+
+</html>

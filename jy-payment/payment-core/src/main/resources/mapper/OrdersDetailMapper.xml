@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.OrdersDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.OrdersDetail" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="pay_account_no" property="payAccountNo" jdbcType="VARCHAR" />
+    <result column="sent_result" property="sentResult" jdbcType="VARCHAR" />
+    <result column="need_pay" property="needPay" jdbcType="BIGINT" />
+    <result column="sent_no" property="sentNo" jdbcType="VARCHAR" />
+    <result column="prestore_amt" property="prestoreAmt" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="serial_number" property="serialNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pay_account_no, sent_result, need_pay, sent_no, prestore_amt, order_id,serial_number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_orders_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_orders_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.OrdersDetail" >
+    insert into tbl_orders_detail (id, pay_account_no, sent_result, 
+      need_pay, sent_no, prestore_amt, 
+      order_id,serial_number)
+    values (#{id,jdbcType=BIGINT}, #{payAccountNo,jdbcType=VARCHAR}, #{sentResult,jdbcType=VARCHAR}, 
+      #{needPay,jdbcType=BIGINT}, #{sentNo,jdbcType=VARCHAR}, #{prestoreAmt,jdbcType=BIGINT}, 
+      #{orderId,jdbcType=BIGINT},#{serialNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.OrdersDetail" >
+    insert into tbl_orders_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="payAccountNo != null" >
+        pay_account_no,
+      </if>
+      <if test="sentResult != null" >
+        sent_result,
+      </if>
+      <if test="needPay != null" >
+        need_pay,
+      </if>
+      <if test="sentNo != null" >
+        sent_no,
+      </if>
+      <if test="prestoreAmt != null" >
+        prestore_amt,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="serialNumber != null" >
+        serial_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="payAccountNo != null" >
+        #{payAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sentResult != null" >
+        #{sentResult,jdbcType=VARCHAR},
+      </if>
+      <if test="needPay != null" >
+        #{needPay,jdbcType=BIGINT},
+      </if>
+      <if test="sentNo != null" >
+        #{sentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prestoreAmt != null" >
+        #{prestoreAmt,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="serialNumber != null" >
+        #{serialNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.OrdersDetail" >
+    update tbl_orders_detail
+    <set >
+      <if test="payAccountNo != null" >
+        pay_account_no = #{payAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sentResult != null" >
+        sent_result = #{sentResult,jdbcType=VARCHAR},
+      </if>
+      <if test="needPay != null" >
+        need_pay = #{needPay,jdbcType=BIGINT},
+      </if>
+      <if test="sentNo != null" >
+        sent_no = #{sentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="prestoreAmt != null" >
+        prestore_amt = #{prestoreAmt,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="serialNumber != null" >
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.OrdersDetail" >
+    update tbl_orders_detail
+    set pay_account_no = #{payAccountNo,jdbcType=VARCHAR},
+      sent_result = #{sentResult,jdbcType=VARCHAR},
+      need_pay = #{needPay,jdbcType=BIGINT},
+      sent_no = #{sentNo,jdbcType=VARCHAR},
+      prestore_amt = #{prestoreAmt,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      serial_number = #{serialNumber,jdbcType=VARCHAR}
+
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_orders_detail
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+</mapper>

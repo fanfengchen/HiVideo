@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.InterfaceDefineMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.InterfaceDefine" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="if_name" property="ifName" jdbcType="VARCHAR" />
+    <result column="if_type" property="ifType" jdbcType="VARCHAR" />
+    <result column="if_ref" property="ifRef" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, if_name, if_type, if_ref
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_interface_define
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_interface_define
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.InterfaceDefine" >
+    insert into tbl_interface_define (id, if_name, if_type, 
+      if_ref)
+    values (#{id,jdbcType=INTEGER}, #{ifName,jdbcType=VARCHAR}, #{ifType,jdbcType=VARCHAR}, 
+      #{ifRef,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.InterfaceDefine" >
+    insert into tbl_interface_define
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ifName != null" >
+        if_name,
+      </if>
+      <if test="ifType != null" >
+        if_type,
+      </if>
+      <if test="ifRef != null" >
+        if_ref,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ifName != null" >
+        #{ifName,jdbcType=VARCHAR},
+      </if>
+      <if test="ifType != null" >
+        #{ifType,jdbcType=VARCHAR},
+      </if>
+      <if test="ifRef != null" >
+        #{ifRef,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.InterfaceDefine" >
+    update tbl_interface_define
+    <set >
+      <if test="ifName != null" >
+        if_name = #{ifName,jdbcType=VARCHAR},
+      </if>
+      <if test="ifType != null" >
+        if_type = #{ifType,jdbcType=VARCHAR},
+      </if>
+      <if test="ifRef != null" >
+        if_ref = #{ifRef,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.InterfaceDefine" >
+    update tbl_interface_define
+    set if_name = #{ifName,jdbcType=VARCHAR},
+      if_type = #{ifType,jdbcType=VARCHAR},
+      if_ref = #{ifRef,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

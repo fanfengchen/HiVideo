@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.WxUserMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.WxUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="lang" property="lang" jdbcType="VARCHAR" />
+    <result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR" />
+    <result column="attention_time" property="attentionTime" jdbcType="TIMESTAMP" />
+    <result column="cancel_attention_time" property="cancelAttentionTime" jdbcType="TIMESTAMP" />
+    <result column="attention_status" property="attentionStatus" jdbcType="VARCHAR" />
+    <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="privilege" property="privilege" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, openid, nick_name, sex, city, province, country, lang, head_img_url, attention_time, 
+    cancel_attention_time, attention_status, unionid, privilege
+  </sql>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+      <if test="params.openid != null" >
+        and openid = #{params.openid,jdbcType=VARCHAR}
+      </if>
+      <if test="params.nickName != null" >
+        and nick_name = #{params.nickName,jdbcType=VARCHAR}
+      </if>
+      <if test="params.sex != null" >
+        and sex = #{params.sex,jdbcType=INTEGER}
+      </if>
+      <if test="params.city != null" >
+        and city = #{params.city,jdbcType=VARCHAR}
+      </if>
+      <if test="params.province != null" >
+        and province = #{params.province,jdbcType=VARCHAR}
+      </if>
+      <if test="params.country != null" >
+        and country = #{params.country,jdbcType=VARCHAR}
+      </if>
+      <if test="params.lang != null" >
+        and lang = #{params.lang,jdbcType=VARCHAR}
+      </if>
+      <if test="params.headImgUrl != null" >
+        and head_img_url = #{params.headImgUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="params.attentionTime != null" >
+        and attention_time = #{params.attentionTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.cancelAttentionTime != null" >
+        and cancel_attention_time = #{params.cancelAttentionTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="params.attentionStatus != null" >
+        and attention_status = #{params.attentionStatus,jdbcType=VARCHAR}
+      </if>
+      <if test="params.unionid != null" >
+        and unionid = #{params.unionid,jdbcType=VARCHAR}
+      </if>
+      <if test="params.privilege != null" >
+        and privilege = #{params.privilege,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_wx_user
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectCountByParams" resultType="int" >
+    select count(*) from tbl_wx_user
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectListByParams" resultType="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_wx_user
+    <include refid="Example_Where_Clause" />
+    <if test="orderParam != null" >
+      order by ${orderParam}
+    </if>
+    <include refid="common.Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_wx_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_wx_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.WxUser" >
+    insert into tbl_wx_user (id, openid, nick_name, 
+      sex, city, province, 
+      country, lang, head_img_url, 
+      attention_time, cancel_attention_time, 
+      attention_status, unionid, privilege
+      )
+    values (#{id,jdbcType=BIGINT}, #{openid,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{country,jdbcType=VARCHAR}, #{lang,jdbcType=VARCHAR}, #{headImgUrl,jdbcType=VARCHAR}, 
+      #{attentionTime,jdbcType=TIMESTAMP}, #{cancelAttentionTime,jdbcType=TIMESTAMP}, 
+      #{attentionStatus,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{privilege,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.WxUser" >
+    insert into tbl_wx_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="lang != null" >
+        lang,
+      </if>
+      <if test="headImgUrl != null" >
+        head_img_url,
+      </if>
+      <if test="attentionTime != null" >
+        attention_time,
+      </if>
+      <if test="cancelAttentionTime != null" >
+        cancel_attention_time,
+      </if>
+      <if test="attentionStatus != null" >
+        attention_status,
+      </if>
+      <if test="unionid != null" >
+        unionid,
+      </if>
+      <if test="privilege != null" >
+        privilege,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="lang != null" >
+        #{lang,jdbcType=VARCHAR},
+      </if>
+      <if test="headImgUrl != null" >
+        #{headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionTime != null" >
+        #{attentionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelAttentionTime != null" >
+        #{cancelAttentionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attentionStatus != null" >
+        #{attentionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        #{privilege,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.WxUser" >
+    update tbl_wx_user
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="lang != null" >
+        lang = #{lang,jdbcType=VARCHAR},
+      </if>
+      <if test="headImgUrl != null" >
+        head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attentionTime != null" >
+        attention_time = #{attentionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelAttentionTime != null" >
+        cancel_attention_time = #{cancelAttentionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="attentionStatus != null" >
+        attention_status = #{attentionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="privilege != null" >
+        privilege = #{privilege,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.WxUser" >
+    update tbl_wx_user
+    set openid = #{openid,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      lang = #{lang,jdbcType=VARCHAR},
+      head_img_url = #{headImgUrl,jdbcType=VARCHAR},
+      attention_time = #{attentionTime,jdbcType=TIMESTAMP},
+      cancel_attention_time = #{cancelAttentionTime,jdbcType=TIMESTAMP},
+      attention_status = #{attentionStatus,jdbcType=VARCHAR},
+      unionid = #{unionid,jdbcType=VARCHAR},
+      privilege = #{privilege,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="queryWxUserByOpenId" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_wx_user
+    where openid = #{openid,jdbcType=VARCHAR}
+  </select>
+</mapper>

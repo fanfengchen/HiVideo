@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.RefundInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.RefundInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="refund_no" property="refundNo" jdbcType="VARCHAR" />
+    <result column="refund_amt" property="refundAmt" jdbcType="INTEGER" />
+    <result column="refund_reason" property="refundReason" jdbcType="VARCHAR" />
+    <result column="refund_sts" property="refundSts" jdbcType="VARCHAR" />
+    <result column="res" property="res" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, refund_no, refund_amt, refund_reason, refund_sts, res, order_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_refund_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_refund_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.RefundInfo" >
+    insert into tbl_refund_info (id, refund_no, refund_amt, 
+      refund_reason, refund_sts, res, 
+      order_id)
+    values (#{id,jdbcType=INTEGER}, #{refundNo,jdbcType=VARCHAR}, #{refundAmt,jdbcType=INTEGER}, 
+      #{refundReason,jdbcType=VARCHAR}, #{refundSts,jdbcType=VARCHAR}, #{res,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.RefundInfo" >
+    insert into tbl_refund_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="refundNo != null" >
+        refund_no,
+      </if>
+      <if test="refundAmt != null" >
+        refund_amt,
+      </if>
+      <if test="refundReason != null" >
+        refund_reason,
+      </if>
+      <if test="refundSts != null" >
+        refund_sts,
+      </if>
+      <if test="res != null" >
+        res,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="refundNo != null" >
+        #{refundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAmt != null" >
+        #{refundAmt,jdbcType=INTEGER},
+      </if>
+      <if test="refundReason != null" >
+        #{refundReason,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSts != null" >
+        #{refundSts,jdbcType=VARCHAR},
+      </if>
+      <if test="res != null" >
+        #{res,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.RefundInfo" >
+    update tbl_refund_info
+    <set >
+      <if test="refundNo != null" >
+        refund_no = #{refundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAmt != null" >
+        refund_amt = #{refundAmt,jdbcType=INTEGER},
+      </if>
+      <if test="refundReason != null" >
+        refund_reason = #{refundReason,jdbcType=VARCHAR},
+      </if>
+      <if test="refundSts != null" >
+        refund_sts = #{refundSts,jdbcType=VARCHAR},
+      </if>
+      <if test="res != null" >
+        res = #{res,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.RefundInfo" >
+    update tbl_refund_info
+    set refund_no = #{refundNo,jdbcType=VARCHAR},
+      refund_amt = #{refundAmt,jdbcType=INTEGER},
+      refund_reason = #{refundReason,jdbcType=VARCHAR},
+      refund_sts = #{refundSts,jdbcType=VARCHAR},
+      res = #{res,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_refund_info
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+</mapper>

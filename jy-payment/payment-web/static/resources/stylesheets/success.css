@@ -1,0 +1,65 @@
+.center-icon {
+  text-align: center;
+  padding-top: 20px;
+  padding-top: 1.25rem;
+  padding-bottom: 20px;
+  padding-bottom: 1.25rem;
+  border-bottom: solid 1px #ccc;
+}
+.center-icon i.icon {
+  color: #20a4f0;
+  font-size: 64px;
+  font-size: 4rem;
+  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+}
+.center-icon .state {
+  margin-bottom: 16px;
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+.center-icon .name {
+  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+  color: #a6a6a6;
+  font-size: 14px;
+}
+.center-icon .price span {
+  font-size: 24px;
+  font-size: 1.5rem;
+}
+.board {
+  background-color: #fff;
+}
+.board .inner {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+ul.item-list li {
+  font-size: 14px;
+  height: 32px;
+  height: 2rem;
+}
+ul.item-list li .form-control {
+  color: #a6a6a6;
+}
+.hint-bar {
+  font-size: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 16px;
+  padding-top: 1rem;
+  padding-bottom: 16px;
+  padding-bottom: 1rem;
+  color: #a6a6a6;
+  line-height: 1.68;
+  vertical-align: middle;
+}
+.submit-box {
+  padding-left: 12px;
+  padding-right: 12px;
+  margin-top: 10px;
+  margin-top: 0.625rem;
+  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.PayLimitTimeMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.entity.PayLimitTime" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="fee_type" property="feeType" jdbcType="VARCHAR" />
+    <result column="limit_type" property="limitType" jdbcType="VARCHAR" />
+    <result column="limit_date_start" property="limitDateStart" jdbcType="VARCHAR" />
+    <result column="limit_date_end" property="limitDateEnd" jdbcType="VARCHAR" />
+    <result column="limit_time_start" property="limitTimeStart" jdbcType="VARCHAR" />
+    <result column="limit_time_end" property="limitTimeEnd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fee_type, limit_type, limit_date_start, limit_date_end, limit_time_start, limit_time_end
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_pay_limit_time
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_pay_limit_time
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.entity.PayLimitTime" >
+    insert into tbl_pay_limit_time (id, fee_type, limit_type, 
+      limit_date_start, limit_date_end, limit_time_start, 
+      limit_time_end)
+    values (#{id,jdbcType=INTEGER}, #{feeType,jdbcType=VARCHAR}, #{limitType,jdbcType=VARCHAR}, 
+      #{limitDateStart,jdbcType=VARCHAR}, #{limitDateEnd,jdbcType=VARCHAR}, #{limitTimeStart,jdbcType=VARCHAR}, 
+      #{limitTimeEnd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.entity.PayLimitTime" >
+    insert into tbl_pay_limit_time
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="feeType != null" >
+        fee_type,
+      </if>
+      <if test="limitType != null" >
+        limit_type,
+      </if>
+      <if test="limitDateStart != null" >
+        limit_date_start,
+      </if>
+      <if test="limitDateEnd != null" >
+        limit_date_end,
+      </if>
+      <if test="limitTimeStart != null" >
+        limit_time_start,
+      </if>
+      <if test="limitTimeEnd != null" >
+        limit_time_end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="feeType != null" >
+        #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="limitType != null" >
+        #{limitType,jdbcType=VARCHAR},
+      </if>
+      <if test="limitDateStart != null" >
+        #{limitDateStart,jdbcType=VARCHAR},
+      </if>
+      <if test="limitDateEnd != null" >
+        #{limitDateEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTimeStart != null" >
+        #{limitTimeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTimeEnd != null" >
+        #{limitTimeEnd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.entity.PayLimitTime" >
+    update tbl_pay_limit_time
+    <set >
+      <if test="feeType != null" >
+        fee_type = #{feeType,jdbcType=VARCHAR},
+      </if>
+      <if test="limitType != null" >
+        limit_type = #{limitType,jdbcType=VARCHAR},
+      </if>
+      <if test="limitDateStart != null" >
+        limit_date_start = #{limitDateStart,jdbcType=VARCHAR},
+      </if>
+      <if test="limitDateEnd != null" >
+        limit_date_end = #{limitDateEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTimeStart != null" >
+        limit_time_start = #{limitTimeStart,jdbcType=VARCHAR},
+      </if>
+      <if test="limitTimeEnd != null" >
+        limit_time_end = #{limitTimeEnd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.entity.PayLimitTime" >
+    update tbl_pay_limit_time
+    set fee_type = #{feeType,jdbcType=VARCHAR},
+      limit_type = #{limitType,jdbcType=VARCHAR},
+      limit_date_start = #{limitDateStart,jdbcType=VARCHAR},
+      limit_date_end = #{limitDateEnd,jdbcType=VARCHAR},
+      limit_time_start = #{limitTimeStart,jdbcType=VARCHAR},
+      limit_time_end = #{limitTimeEnd,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByFeeType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_pay_limit_time
+    where fee_type = #{feeType,jdbcType=VARCHAR}
+  </select>
+</mapper>
