@@ -115,7 +115,9 @@ public class FileHandleServiceImpl implements FileHandleService {
 		record.setState(CommonConstant.FILE_STATE_NOUSE);
 
 		return record;
-	}
+	}  
+
+
 
 	/**
 	 * 上传文件到文件服务器
