@@ -53,4 +53,38 @@ public class FileUploadController {
 		return ResponseMessage.error("文件过大");
 
 	}
+
+
+	/**
+	 * 多文件上传
+	 * 
+	 * @param files
+	 * @return
+	 * @throws ServiceException
+	 */
+	@RequestMapping(value = "filesUpload", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseMessage filesUpload(
+			@RequestParam("files") MultipartFile[] files)
+			throws ServiceException {
+		List<FileUploadLocalPathRes> list = new ArrayList<FileUploadLocalPathRes>();
+		if (files != null && files.length > 0) {
+			for (int i = 0; i < files.length; i++) {
+				FileUploadLocalPathRes res = new FileUploadLocalPathRes();
+				MultipartFile file = files[i];
+				String localPath = fileService.saveFileLocal(file, "01",
+						"胡话.jpg");
+				res.setLocalUrl(localPath);
+				list.add(res);
+			}
+		}
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		return ResponseMessage.success(map);
+
+	}
+
+
+
 }

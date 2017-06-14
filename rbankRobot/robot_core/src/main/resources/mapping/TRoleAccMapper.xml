@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.robot.core.mapper.TRoleAccMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.robot.core.pojo.TRoleAcc">
+		<id column="ACC_ID" property="accId" jdbcType="CHAR" />
+		<id column="ROLE_ID" property="roleId" jdbcType="CHAR" />
+		<result column="ACC_NAME" property="accName" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ACC_ID, ROLE_ID, ACC_NAME, LAST_TIME
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.roleId != null">
+				and ROLE_ID = #{params.roleId,jdbcType=CHAR}
+			</if>
+			<if test="params.accName != null">
+				and ACC_NAME = #{params.accName,jdbcType=CHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_role_acc
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_role_acc
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListIdRoleAcc" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+   	SELECT *
+	FROM t_role_acc 
+ 	WHERE ROLE_ID=#{roleId,jdbcType=INTEGER}
+  </select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_role_acc
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<!-- <include refid="common.Pagination_Limit" /> -->
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.ebeijia.robot.core.pojo.TRoleAccKey">
+		select
+		<include refid="Base_Column_List" />
+		from t_role_acc
+		where ACC_ID = #{accId,jdbcType=CHAR}
+		and ROLE_ID = #{roleId,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="com.ebeijia.robot.core.pojo.TRoleAccKey">
+		delete from t_role_acc
+		where ACC_ID = #{accId,jdbcType=CHAR}
+		and ROLE_ID = #{roleId,jdbcType=CHAR}
+	</delete>
+	<delete id="deleteByRoleId" parameterType="java.lang.Integer">
+		delete from t_role_acc
+		where ROLE_ID = #{roleId,jdbcType=CHAR}
+	</delete>
+
+
+	<insert id="insert" parameterType="com.ebeijia.robot.core.pojo.TRoleAcc">
+		insert into t_role_acc (ACC_ID, ROLE_ID, ACC_NAME,
+		LAST_TIME)
+		values (#{accId,jdbcType=CHAR}, #{roleId,jdbcType=CHAR},
+		#{accName,jdbcType=CHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.robot.core.pojo.TRoleAcc"
+		useGeneratedKeys="true" keyProperty="">
+		insert into t_role_acc
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="accId != null">
+				ACC_ID,
+			</if>
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="accName != null">
+				ACC_NAME,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="accId != null">
+				#{accId,jdbcType=CHAR},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=CHAR},
+			</if>
+			<if test="accName != null">
+				#{accName,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.robot.core.pojo.TRoleAcc">
+		update t_role_acc
+		<set>
+			<if test="accName != null">
+				ACC_NAME = #{accName,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ACC_ID = #{accId,jdbcType=CHAR}
+		and ROLE_ID = #{roleId,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.robot.core.pojo.TRoleAcc">
+		update t_role_acc
+		set ACC_NAME = #{accName,jdbcType=CHAR},
+		LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+		where ACC_ID = #{accId,jdbcType=CHAR}
+		and ROLE_ID = #{roleId,jdbcType=CHAR}
+	</update>
+</mapper>

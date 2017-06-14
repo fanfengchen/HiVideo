@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.ebeijia.robot.core.mapper.TDictateRobotMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.robot.core.pojo.TDictateRobot">
+		<id column="D_ID" property="dId" jdbcType="INTEGER" />
+		<result column="DEVICE_ID" property="deviceId" jdbcType="VARCHAR" />
+		<result column="DTYPE" property="dType" jdbcType="VARCHAR" />
+		<result column="DICTATE_CODE" property="dictateCode" jdbcType="VARCHAR" />
+		<result column="DICTATE_NAME" property="dictateName" jdbcType="VARCHAR" />
+		<result column="DICTATE_CONTEXT" property="dictateContext"
+			jdbcType="VARCHAR" />
+		<result column="FILE_ID" property="fileId" jdbcType="VARCHAR" />		
+		<result column="RES2" property="res2" jdbcType="VARCHAR" />
+		<result column="RES3" property="res3" jdbcType="VARCHAR" />
+		<result column="RES4" property="res4" jdbcType="VARCHAR" />
+		<result column="RES5" property="res5" jdbcType="VARCHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		D_ID,DTYPE,DEVICE_ID, DICTATE_CODE, DICTATE_NAME,
+		DICTATE_CONTEXT,FILE_ID, RES2, RES3, RES4,
+		RES5, LAST_TIME
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+
+			<if test="params.dType != null">
+				and DTYPE = #{params.dType,jdbcType=VARCHAR}
+			</if>
+			<if test="params.deviceId != null">
+				and DEVICE_ID = #{params.deviceId,jdbcType=VARCHAR}
+			</if>
+			<if test="params.deviceIds != null">
+				and a.DEVICE_ID = #{params.deviceIds,jdbcType=VARCHAR}
+			</if>
+			<if test="params.dictateCode != null">
+				and DICTATE_CODE = #{params.dictateCode,jdbcType=VARCHAR}
+			</if>
+			<if test="params.dictateName != null">
+				and DICTATE_NAME = #{params.dictateName,jdbcType=VARCHAR}
+			</if>
+			<if test="params.dictateContext != null">
+				and DICTATE_CONTEXT =
+				#{params.dictateContext,jdbcType=VARCHAR}
+			</if>
+			<if test="params.fileId != null">
+				and FILE_ID = #{params.fileId,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res4 != null">
+				and RES4 = #{params.res4,jdbcType=VARCHAR}
+			</if>
+			<if test="params.res5 != null">
+				and RES5 = #{params.res5,jdbcType=VARCHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectRobotByParams" resultType="list" resultMap="BaseResultMap" >
+	SELECT a.DICTATE_CODE as dictateCode,a.DICTATE_NAME as dictateName,a.DICTATE_CONTEXT as dictateContext,a.DTYPE as dType,
+           b.DICT_VALUE as dName,a.RES2 as dContext,c.LOCAL_PATH as urlPath
+     from  t_dictate_robot a LEFT JOIN t_dictdata b on  b.DICT_ID = 'DITYPYE' and a.DTYPE=b.DICT_KEY LEFT JOIN 
+           t_fileinfo c on a.FILE_ID=c.FILE_ID
+    <include refid="Example_Where_Clause" />
+  </select>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dictate_robot
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_dictate_robot
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dictate_robot
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_dictate_robot
+		where D_ID = #{dId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_dictate_robot
+		where D_ID = #{dId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ebeijia.robot.core.pojo.TDictateRobot">
+		insert into t_dictate_robot
+		(D_ID,DTYPE,DEVICE_ID, DICTATE_CODE,
+		DICTATE_NAME, DICTATE_CONTEXT,
+		RES1,
+		RES2, RES3, RES4, RES5,
+		LAST_TIME)
+		values (#{dId,jdbcType=INTEGER},
+		#{dType,jdbcType=VARCHAR},#{deviceId,jdbcType=VARCHAR},
+		#{dictateCode,jdbcType=VARCHAR},
+		#{dictateName,jdbcType=VARCHAR},
+		#{dictateContext,jdbcType=VARCHAR}, #{res1,jdbcType=VARCHAR},
+		#{res2,jdbcType=VARCHAR}, #{res3,jdbcType=VARCHAR},
+		#{res4,jdbcType=VARCHAR}, #{res5,jdbcType=VARCHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.robot.core.pojo.TDictateRobot">
+		insert into t_dictate_robot
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dId != null">
+				D_ID,
+			</if>
+			<if test="dType != null">
+				DTYPE,
+			</if>
+			<if test="deviceId != null">
+				DEVICE_ID,
+			</if>
+			<if test="dictateCode != null">
+				DICTATE_CODE,
+			</if>
+			<if test="dictateName != null">
+				DICTATE_NAME,
+			</if>
+			<if test="dictateContext != null">
+				DICTATE_CONTEXT,
+			</if>
+			<if test="fileId != null">
+				FILE_ID,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="res4 != null">
+				RES4,
+			</if>
+			<if test="res5 != null">
+				RES5,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dId != null">
+				#{dId,jdbcType=INTEGER},
+			</if>
+			<if test="dType != null">
+				#{dType,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				#{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="dictateCode != null">
+				#{dictateCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictateName != null">
+				#{dictateName,jdbcType=VARCHAR},
+			</if>
+			<if test="dictateContext != null">
+				#{dictateContext,jdbcType=VARCHAR},
+			</if>
+			<if test="fileId != null">
+				#{fileId,jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="res4 != null">
+				#{res4,jdbcType=VARCHAR},
+			</if>
+			<if test="res5 != null">
+				#{res5,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.robot.core.pojo.TDictateRobot">
+		update t_dictate_robot
+		<set>
+			<if test="dType != null">
+				DTYPE = #{dType,jdbcType=VARCHAR},
+			</if>
+			<if test="deviceId != null">
+				DEVICE_ID = #{deviceId,jdbcType=VARCHAR},
+			</if>
+			<if test="dictateCode != null">
+				DICTATE_CODE = #{dictateCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictateName != null">
+				DICTATE_NAME = #{dictateName,jdbcType=VARCHAR},
+			</if>
+			<if test="dictateContext != null">
+				DICTATE_CONTEXT = #{dictateContext,jdbcType=VARCHAR},
+			</if>
+			<if test="fileId != null">
+				FILE_ID = #{fileId.jdbcType=VARCHAR},
+			</if>
+			<if test="res1 != null">
+				RES1 = #{res1,jdbcType=VARCHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=VARCHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=VARCHAR},
+			</if>
+			<if test="res4 != null">
+				RES4 = #{res4,jdbcType=VARCHAR},
+			</if>
+			<if test="res5 != null">
+				RES5 = #{res5,jdbcType=VARCHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where D_ID = #{dId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.robot.core.pojo.TDictateRobot">
+		update
+		t_dictate_robot
+		set DTYPE = #{dType,jdbcType=VARCHAR},
+		DEVICE_ID =
+		#{deviceId,jdbcType=VARCHAR},
+		DICTATE_CODE =
+		#{dictateCode,jdbcType=VARCHAR},
+		DICTATE_NAME =
+		#{dictateName,jdbcType=VARCHAR},
+		DICTATE_CONTEXT =
+		#{dictateContext,jdbcType=VARCHAR},
+		RES1 = #{res1,jdbcType=VARCHAR},
+		RES2 = #{res2,jdbcType=VARCHAR},
+		RES3 = #{res3,jdbcType=VARCHAR},
+		RES4 =
+		#{res4,jdbcType=VARCHAR},
+		RES5 = #{res5,jdbcType=VARCHAR},
+		LAST_TIME =
+		#{lastTime,jdbcType=TIMESTAMP}
+		where D_ID = #{dId,jdbcType=INTEGER}
+	</update>
+</mapper>

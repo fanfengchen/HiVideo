@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.robot.core.mapper.TDictMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.robot.core.pojo.TDict">
+		<result column="DICT_ID" property="dictId" jdbcType="CHAR" />
+		<result column="NAME" property="name" jdbcType="CHAR" />
+		<result column="DESC_CN" property="descCn" jdbcType="CHAR" />
+		<result column="IS_READ_ONLY" property="isReadOnly" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		DICT_ID, NAME, DESC_CN, IS_READ_ONLY,LAST_TIME
+	</sql>
+	<insert id="insert" parameterType="com.ebeijia.robot.core.pojo.TDict">
+		insert into t_dict (DICT_ID, NAME, DESC_CN,
+		IS_READ_ONLY, LAST_TIME)
+		values (#{dictId,jdbcType=CHAR}, #{name,jdbcType=CHAR},
+		#{descCn,jdbcType=CHAR},
+		#{isReadOnly,jdbcType=CHAR}, #{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.dictId != null">
+				and DICT_ID = #{params.dictId,jdbcType=CHAR}
+			</if>
+			<if test="params.name != null">
+				and NAME = #{params.name,jdbcType=CHAR}
+			</if>
+			<if test="params.descCn != null">
+				and DESC_CN = #{params.descCn,jdbcType=CHAR}
+			</if>
+			<if test="params.isReadOnly != null">
+				and IS_READ_ONLY = #{params.isReadOnly,jdbcType=CHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dict
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_dict
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByPageParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dict
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+	   <include refid="common.Pagination_Limit" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_dict
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<!-- <include refid="common.Pagination_Limit" /> -->
+	</select>
+	<insert id="insertSelective" parameterType="com.ebeijia.robot.core.pojo.TDict">
+		insert into t_dict
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dictId != null">
+				DICT_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="descCn != null">
+				DESC_CN,
+			</if>
+			<if test="isReadOnly != null">
+				IS_READ_ONLY,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dictId != null">
+				#{dictId,jdbcType=CHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=CHAR},
+			</if>
+			<if test="descCn != null">
+				#{descCn,jdbcType=CHAR},
+			</if>
+			<if test="isReadOnly != null">
+				#{isReadOnly,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateSelective" parameterType="com.ebeijia.robot.core.pojo.TDict">
+		update t_dict
+		<set>
+			<if test="dictId != null">
+				DICT_ID = #{dictId,jdbcType=CHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=CHAR},
+			</if>
+			<if test="descCn != null">
+				DESC_CN = #{descCn,jdbcType=CHAR},
+			</if>
+			<if test="isReadOnly != null">
+				IS_READ_ONLY = #{isReadOnly,jdbcType=CHAR},
+			</if>
+		</set>
+		where DICT_ID = #{dictId,jdbcType=CHAR}
+	</update>
+<delete id="deleteBySelective" parameterType="string">
+		delete from t_dict
+		where DICT_ID = #{dictId,jdbcType=VARCHAR}
+	</delete>
+</mapper>

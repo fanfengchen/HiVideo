@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.mapper.VerSoftverMapper">
+	<resultMap id="verSoftver" type="com.ebeijia.models.VerSoftver">
+		<id column="SOFT_ID" property="softId" jdbcType="INTEGER" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="CHNL_ID" property="chnlId" jdbcType="VARCHAR" />
+		<result column="TYPE_ID" property="typeId" jdbcType="INTEGER" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PACK_NAME" property="packName" jdbcType="VARCHAR" />
+		<result column="VER_NO" property="verNo" jdbcType="VARCHAR" />
+		<result column="PACK_URL" property="packUrl" jdbcType="VARCHAR" />
+		<result column="IMG_ID" property="imgId" jdbcType="INTEGER" />
+		<result column="ISU_TIME" property="isuTime" jdbcType="TIMESTAMP" />
+		<result column="IS_FORCE" property="isForce" jdbcType="CHAR" />
+		<result column="UPDATE_LOG" property="updateLog" jdbcType="LONGVARCHAR" />
+		<result column="ABOUT" property="about" jdbcType="LONGVARCHAR" />
+		<result column="RES2" property="res2" jdbcType="CHAR" />
+		<result column="RES3" property="res3" jdbcType="CHAR" />
+		<result column="RES4" property="res4" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+		<association property="mdiFileinfo" javaType="com.ebeijia.models.MdiFileinfo">
+			<id column="FILE_ID" property="fileId" jdbcType="INTEGER" />
+			<result column="FILE_NAME" property="fileName" jdbcType="CHAR" />
+			<result column="URL_PATH" property="urlPath" jdbcType="CHAR" />
+			<result column="STATE" property="state" jdbcType="CHAR" />
+			<result column="RES1" property="res1" jdbcType="CHAR" />
+			<result column="RES2" property="res2" jdbcType="CHAR" />
+			<result column="RES3" property="res3" jdbcType="CHAR" />
+			<result column="RES4" property="res4" jdbcType="CHAR" />
+			<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+		</association>
+	</resultMap>
+	<resultMap id="BaseResultMap" type="com.ebeijia.models.VerSoftver">
+		<id column="SOFT_ID" property="softId" jdbcType="INTEGER" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="CHNL_ID" property="chnlId" jdbcType="VARCHAR" />
+		<result column="TYPE_ID" property="typeId" jdbcType="INTEGER" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="PACK_NAME" property="packName" jdbcType="VARCHAR" />
+		<result column="VER_NO" property="verNo" jdbcType="VARCHAR" />
+		<result column="PACK_URL" property="packUrl" jdbcType="VARCHAR" />
+		<result column="IMG_ID" property="imgId" jdbcType="INTEGER" />
+		<result column="ISU_TIME" property="isuTime" jdbcType="TIMESTAMP" />
+		<result column="IS_FORCE" property="isForce" jdbcType="CHAR" />
+		<result column="UPDATE_LOG" property="updateLog" jdbcType="LONGVARCHAR" />
+		<result column="ABOUT" property="about" jdbcType="LONGVARCHAR" />
+		<result column="RES2" property="res2" jdbcType="CHAR" />
+		<result column="RES3" property="res3" jdbcType="CHAR" />
+		<result column="RES4" property="res4" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+		<association property="verSoftype" javaType="com.ebeijia.models.VerSofttype">
+			<id column="TYPE_ID" property="typeId" jdbcType="INTEGER" />
+			<result column="TypeName" property="name" jdbcType="VARCHAR" />
+			<result column="ABOUT" property="about" jdbcType="VARCHAR" />
+			<result column="RES1" property="res1" jdbcType="CHAR" />
+			<result column="RES2" property="res2" jdbcType="CHAR" />
+			<result column="RES3" property="res3" jdbcType="CHAR" />
+			<result column="RES4" property="res4" jdbcType="CHAR" />
+			<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+		</association>
+		<association property="mdiFileinfo" javaType="com.ebeijia.models.MdiFileinfo">
+			<id column="FILE_ID" property="fileId" jdbcType="INTEGER" />
+			<result column="FILE_NAME" property="fileName" jdbcType="CHAR" />
+			<result column="URL_PATH" property="urlPath" jdbcType="CHAR" />
+			<result column="STATE" property="state" jdbcType="CHAR" />
+			<result column="RES1" property="res1" jdbcType="CHAR" />
+			<result column="RES2" property="res2" jdbcType="CHAR" />
+			<result column="RES3" property="res3" jdbcType="CHAR" />
+			<result column="RES4" property="res4" jdbcType="CHAR" />
+			<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+		</association>
+	</resultMap>
+
+<resultMap id="previewImgUrl" type="com.ebeijia.models.MdiFileinfo">
+		<id column="FILE_ID" property="fileId" jdbcType="INTEGER" />
+		<result column="FILE_NAME" property="fileName" jdbcType="CHAR" />
+		<result column="URL_PATH" property="urlPath" jdbcType="CHAR" />
+		<result column="STATE" property="state" jdbcType="CHAR" />
+		<result column="RES1" property="res1" jdbcType="CHAR" />
+		<result column="RES2" property="res2" jdbcType="CHAR" />
+		<result column="RES3" property="res3" jdbcType="CHAR" />
+		<result column="RES4" property="res4" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />		
+</resultMap>
+
+
+	<sql id="My_Colimn_List">
+		ver_softver.SOFT_ID,
+		ver_softver.TYPE_ID,
+		ver_softtype.NAME
+		"TypeName",
+		ver_softver.NAME,
+		ver_softver.PACK_NAME,
+		ver_softver.VER_NO,
+		ver_softver.PACK_URL,
+
+		ver_softver.ISU_TIME,
+		ver_softver.IS_FORCE,
+		ver_softver.UPDATE_LOG,
+		ver_softver.ABOUT,
+		mdi_fileinfo.URL_PATH,
+		ver_softtype.TYPE_ID,
+		mdi_fileinfo.FILE_ID
+	</sql>
+
+
+	<sql id="Base_Column_List">
+		SOFT_ID, USER_ID, CHNL_ID, TYPE_ID, NAME, PACK_NAME,
+		VER_NO, PACK_URL,
+		IMG_ID, ISU_TIME,
+		IS_FORCE, RES2, RES3, RES4,
+		LAST_TIME,UPDATE_LOG,
+		ABOUT
+	</sql>
+
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from
+		ver_softver,
+		ver_softtype,
+		mdi_fileinfo
+		where
+		ver_softver.TYPE_ID=ver_softtype.TYPE_ID and ver_softver.IMG_ID=
+		mdi_fileinfo.FILE_ID and ver_softver.CHNL_ID=#{chnlId}
+		<if test="typeId !=null">
+			and ver_softver.TYPE_ID=#{typeId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="selectByPrimarys" resultType="list" resultMap="BaseResultMap">
+		SELECT
+		<include refid="My_Colimn_List"></include>
+		FROM
+		ver_softver,
+		ver_softtype,
+		mdi_fileinfo
+		where
+		ver_softver.TYPE_ID=ver_softtype.TYPE_ID and ver_softver.IMG_ID=
+		mdi_fileinfo.FILE_ID and ver_softver.CHNL_ID=#{chnlId}
+		<if test="typeId !=null">
+			and ver_softver.TYPE_ID=#{typeId,jdbcType=VARCHAR}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+
+	<select id="selectpreviewImgUrl" resultMap="previewImgUrl">
+		SELECT `mdi_fileinfo`.`URL_PATH` 
+		FROM   `ver_softver`,
+			   `ver_softimg`,
+			   `mdi_fileinfo` 
+		WHERE `ver_softver`.`SOFT_ID`=`ver_softimg`.`SOFT_ID` 
+		AND `ver_softimg`.`IMG_ID`=`mdi_fileinfo`.`FILE_ID` 
+		AND `ver_softver`.`SOFT_ID`=#{sofId}
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="verSoftver">
+	SELECT SOFT.NAME,
+		SOFT.PACK_NAME,
+		SOFT.VER_NO,
+		SOFT.PACK_URL,
+		SOFT.ISU_TIME,
+		SOFT.IS_FORCE,
+		SOFT.UPDATE_LOG,
+		SOFT.ABOUT,
+		FILE.URL_PATH
+	FROM `mdi_fileinfo` AS FILE,`ver_softver` AS SOFT
+	WHERE SOFT.IMG_ID=FILE_ID AND SOFT.SOFT_ID=#{sofId}
+	</select>
+
+	<select id="selectBysoftId" resultMap="BaseResultMap">
+	SELECT VER_SOFTVER.`SOFT_ID`,
+		VER_SOFTTYPE.`TYPE_ID`,
+		VER_SOFTTYPE.`NAME` "TypeName",
+		VER_SOFTVER.`NAME`,
+		VER_SOFTVER.`PACK_NAME`,
+		VER_SOFTVER.`VER_NO`,
+		VER_SOFTVER.`PACK_URL`,
+		VER_SOFTVER.`ISU_TIME`,
+		MDI_FILEINFO.`URL_PATH`,
+		VER_SOFTVER.`IS_FORCE`,
+		VER_SOFTVER.`UPDATE_LOG`,
+		VER_SOFTVER.`ABOUT`
+
+	FROM VER_SOFTVER,
+		MDI_FILEINFO,
+		VER_SOFTTYPE
+
+	WHERE VER_SOFTTYPE.`TYPE_ID`=VER_SOFTVER.`TYPE_ID`
+		AND   VER_SOFTVER.`IMG_ID`=MDI_FILEINFO.`FILE_ID`
+		AND   VER_SOFTVER.`NAME` LIKE CONCAT('%',#{name},'%') 
+		<include refid="common.Pagination_Limit" />
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		<!-- WARNING - @mbggenerated This element is automatically generated by 
+			MyBatis Generator, do not modify. This element was generated on Fri Oct 14 
+			17:02:13 CST 2016. -->
+		delete from ver_softver
+		where SOFT_ID = #{softId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ebeijia.models.VerSoftver">
+		<!-- WARNING - @mbggenerated This element is automatically generated by 
+			MyBatis Generator, do not modify. This element was generated on Fri Oct 14 
+			17:02:13 CST 2016. -->
+		insert into ver_softver (SOFT_ID, USER_ID, CHNL_ID,
+		TYPE_ID, NAME,
+		PACK_NAME,
+		VER_NO, PACK_URL, IMG_ID,
+		ISU_TIME, IS_FORCE, RES2,
+		RES3,
+		RES4, LAST_TIME, UPDATE_LOG,
+		ABOUT)
+		values (#{softId,jdbcType=INTEGER},
+		#{userId,jdbcType=VARCHAR},
+		#{chnlId,jdbcType=VARCHAR},
+		#{typeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{packName,jdbcType=VARCHAR},
+		#{verNo,jdbcType=VARCHAR},
+		#{packUrl,jdbcType=VARCHAR},
+		#{imgId,jdbcType=INTEGER},
+		#{isuTime,jdbcType=TIMESTAMP}, #{isForce,jdbcType=CHAR},
+		#{res2,jdbcType=CHAR},
+		#{res3,jdbcType=CHAR}, #{res4,jdbcType=CHAR},
+		#{lastTime,jdbcType=TIMESTAMP}, #{updateLog,jdbcType=LONGVARCHAR},
+		#{about,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.models.VerSoftver">
+		<!-- WARNING - @mbggenerated This element is automatically generated by 
+			MyBatis Generator, do not modify. This element was generated on Fri Oct 14 
+			17:02:13 CST 2016. -->
+		insert into ver_softver
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="softId != null">
+				SOFT_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="chnlId != null">
+				CHNL_ID,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="packName != null">
+				PACK_NAME,
+			</if>
+			<if test="verNo != null">
+				VER_NO,
+			</if>
+			<if test="packUrl != null">
+				PACK_URL,
+			</if>
+			<if test="imgId != null">
+				IMG_ID,
+			</if>
+			<if test="isuTime != null">
+				ISU_TIME,
+			</if>
+			<if test="isForce != null">
+				IS_FORCE,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="res4 != null">
+				RES4,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+			<if test="updateLog != null">
+				UPDATE_LOG,
+			</if>
+			<if test="about != null">
+				ABOUT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="softId != null">
+				#{softId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="chnlId != null">
+				#{chnlId,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="packName != null">
+				#{packName,jdbcType=VARCHAR},
+			</if>
+			<if test="verNo != null">
+				#{verNo,jdbcType=VARCHAR},
+			</if>
+			<if test="packUrl != null">
+				#{packUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="imgId != null">
+				#{imgId,jdbcType=INTEGER},
+			</if>
+			<if test="isuTime != null">
+				#{isuTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isForce != null">
+				#{isForce,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=CHAR},
+			</if>
+			<if test="res4 != null">
+				#{res4,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateLog != null">
+				#{updateLog,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="about != null">
+				#{about,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.models.VerSoftver">
+		<!-- WARNING - @mbggenerated This element is automatically generated by 
+			MyBatis Generator, do not modify. This element was generated on Fri Oct 14 
+			17:02:13 CST 2016. -->
+		update ver_softver
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="chnlId != null">
+				CHNL_ID = #{chnlId,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				TYPE_ID = #{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="packName != null">
+				PACK_NAME = #{packName,jdbcType=VARCHAR},
+			</if>
+			<if test="verNo != null">
+				VER_NO = #{verNo,jdbcType=VARCHAR},
+			</if>
+			<if test="packUrl != null">
+				PACK_URL = #{packUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="imgId != null">
+				IMG_ID = #{imgId,jdbcType=INTEGER},
+			</if>
+			<if test="isuTime != null">
+				ISU_TIME = #{isuTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isForce != null">
+				IS_FORCE = #{isForce,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=CHAR},
+			</if>
+			<if test="res4 != null">
+				RES4 = #{res4,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateLog != null">
+				UPDATE_LOG = #{updateLog,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="about != null">
+				ABOUT = #{about,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where SOFT_ID = #{softId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ebeijia.models.VerSoftver">
+		<!-- WARNING - @mbggenerated This element is automatically generated by 
+			MyBatis Generator, do not modify. This element was generated on Fri Oct 14 
+			17:02:13 CST 2016. -->
+		update ver_softver
+		set USER_ID = #{userId,jdbcType=VARCHAR},
+		CHNL_ID =
+		#{chnlId,jdbcType=VARCHAR},
+		TYPE_ID = #{typeId,jdbcType=INTEGER},
+		NAME =
+		#{name,jdbcType=VARCHAR},
+		PACK_NAME = #{packName,jdbcType=VARCHAR},
+		VER_NO = #{verNo,jdbcType=VARCHAR},
+		PACK_URL =
+		#{packUrl,jdbcType=VARCHAR},
+		IMG_ID = #{imgId,jdbcType=INTEGER},
+		ISU_TIME = #{isuTime,jdbcType=TIMESTAMP},
+		IS_FORCE =
+		#{isForce,jdbcType=CHAR},
+		RES2 = #{res2,jdbcType=CHAR},
+		RES3 =
+		#{res3,jdbcType=CHAR},
+		RES4 = #{res4,jdbcType=CHAR},
+		LAST_TIME =
+		#{lastTime,jdbcType=TIMESTAMP},
+		UPDATE_LOG =
+		#{updateLog,jdbcType=LONGVARCHAR},
+		ABOUT =
+		#{about,jdbcType=LONGVARCHAR}
+		where SOFT_ID =
+		#{softId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.models.VerSoftver">
+		<!-- WARNING - @mbggenerated This element is automatically generated by 
+			MyBatis Generator, do not modify. This element was generated on Fri Oct 14 
+			17:02:13 CST 2016. -->
+		update ver_softver
+		set USER_ID = #{userId,jdbcType=VARCHAR},
+		CHNL_ID =
+		#{chnlId,jdbcType=VARCHAR},
+		TYPE_ID = #{typeId,jdbcType=INTEGER},
+		NAME =
+		#{name,jdbcType=VARCHAR},
+		PACK_NAME = #{packName,jdbcType=VARCHAR},
+		VER_NO = #{verNo,jdbcType=VARCHAR},
+		PACK_URL =
+		#{packUrl,jdbcType=VARCHAR},
+		IMG_ID = #{imgId,jdbcType=INTEGER},
+		ISU_TIME = #{isuTime,jdbcType=TIMESTAMP},
+		IS_FORCE =
+		#{isForce,jdbcType=CHAR},
+		RES2 = #{res2,jdbcType=CHAR},
+		RES3 =
+		#{res3,jdbcType=CHAR},
+		RES4 = #{res4,jdbcType=CHAR},
+		LAST_TIME =
+		#{lastTime,jdbcType=TIMESTAMP}
+		where SOFT_ID =
+		#{softId,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.robot.core.mapper.TAllocationUserMapper" >
+  <resultMap id="BaseResultMap" type="com.ebeijia.robot.core.pojo.TAllocationUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PWD" property="pwd" jdbcType="CHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="BRANCH" property="branch" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="CHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="RES1" property="res1" jdbcType="CHAR" />
+    <result column="RES2" property="res2" jdbcType="CHAR" />
+    <result column="RES3" property="res3" jdbcType="CHAR" />
+    <result column="RES4" property="res4" jdbcType="CHAR" />
+    <result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ID, PWD, USER_NAME, MOBILE, BRANCH, STATE, ROLE_ID, RES1, RES2, RES3, RES4, 
+    LAST_TIME
+  </sql>
+  <sql id="Example_Where_Clause" >
+    <trim prefix="where" prefixOverrides="and|or" >
+    <if test="params.userId != null" >
+         and USER_ID = #{params.userId,jdbcType=VARCHAR}
+      </if>
+      <if test="params.pwd != null" >
+         and PWD = #{params.pwd,jdbcType=CHAR}
+      </if>
+      <if test="params.userName != null" >
+         and USER_NAME = #{params.userName,jdbcType=VARCHAR}
+      </if>
+      <if test="params.userNames != null" >      
+         and USER_NAME like  '%${params.userNames}%'        
+      </if>
+      <if test="params.mobile != null" >
+         and MOBILE = #{params.mobile,jdbcType=VARCHAR}
+      </if>
+      <if test="params.branch != null" >
+         and BRANCH = #{params.branch,jdbcType=VARCHAR}
+      </if>
+      <if test="params.state != null" >
+         and STATE = #{params.state,jdbcType=CHAR}
+      </if>
+      <if test="params.roleId != null" >
+         and ROLE_ID = #{params.roleId,jdbcType=INTEGER}
+      </if>
+      <if test="params.res1 != null" >
+         and RES1 = #{params.res1,jdbcType=CHAR}
+      </if>
+      <if test="params.res2 != null" >
+         and RES2 = #{params.res2,jdbcType=CHAR}
+      </if>
+      <if test="params.res3 != null" >
+         and RES3 = #{params.res3,jdbcType=CHAR}
+      </if>
+      <if test="params.res4 != null" >
+         and RES4 = #{params.res4,jdbcType=CHAR}
+      </if>
+      <if test="params.lastTime != null" >
+         and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_allocation_user
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectCountByParams" resultType="int" >
+    select count(*) from t_allocation_user
+    <include refid="Example_Where_Clause" />
+  </select>
+  <select id="selectListByParams" resultType="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_allocation_user
+    <include refid="Example_Where_Clause" />
+    <if test="orderParam != null" >
+      order by ${orderParam}
+    </if>
+    <include refid="common.Pagination_Limit" />
+  </select>
+  
+   <select id="selectListParams" resultType="list" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_allocation_user   
+    <if test="orderParam != null" >
+      order by ${orderParam}
+    </if>
+    <include refid="common.Pagination_Limit" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_allocation_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_allocation_user
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ebeijia.robot.core.pojo.TAllocationUser" >
+    insert into t_allocation_user (USER_ID, PWD, USER_NAME, 
+      MOBILE, BRANCH, STATE, 
+      ROLE_ID, RES1, RES2, RES3, 
+      RES4, LAST_TIME)
+    values (#{userId,jdbcType=VARCHAR}, #{pwd,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{branch,jdbcType=VARCHAR}, #{state,jdbcType=CHAR}, 
+      #{roleId,jdbcType=INTEGER}, #{res1,jdbcType=CHAR}, #{res2,jdbcType=CHAR}, #{res3,jdbcType=CHAR}, 
+      #{res4,jdbcType=CHAR}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ebeijia.robot.core.pojo.TAllocationUser" >
+    insert into t_allocation_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="pwd != null" >
+        PWD,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="branch != null" >
+        BRANCH,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="res1 != null" >
+        RES1,
+      </if>
+      <if test="res2 != null" >
+        RES2,
+      </if>
+      <if test="res3 != null" >
+        RES3,
+      </if>
+      <if test="res4 != null" >
+        RES4,
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="branch != null" >
+        #{branch,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="res1 != null" >
+        #{res1,jdbcType=CHAR},
+      </if>
+      <if test="res2 != null" >
+        #{res2,jdbcType=CHAR},
+      </if>
+      <if test="res3 != null" >
+        #{res3,jdbcType=CHAR},
+      </if>
+      <if test="res4 != null" >
+        #{res4,jdbcType=CHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.robot.core.pojo.TAllocationUser" >
+    update t_allocation_user
+    <set >
+      <if test="pwd != null" >
+        PWD = #{pwd,jdbcType=CHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="branch != null" >
+        BRANCH = #{branch,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="res1 != null" >
+        RES1 = #{res1,jdbcType=CHAR},
+      </if>
+      <if test="res2 != null" >
+        RES2 = #{res2,jdbcType=CHAR},
+      </if>
+      <if test="res3 != null" >
+        RES3 = #{res3,jdbcType=CHAR},
+      </if>
+      <if test="res4 != null" >
+        RES4 = #{res4,jdbcType=CHAR},
+      </if>
+      <if test="lastTime != null" >
+        LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ebeijia.robot.core.pojo.TAllocationUser" >
+    update t_allocation_user
+    set PWD = #{pwd,jdbcType=CHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      BRANCH = #{branch,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=CHAR},
+      ROLE_ID = #{roleId,jdbcType=INTEGER},
+      RES1 = #{res1,jdbcType=CHAR},
+      RES2 = #{res2,jdbcType=CHAR},
+      RES3 = #{res3,jdbcType=CHAR},
+      RES4 = #{res4,jdbcType=CHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

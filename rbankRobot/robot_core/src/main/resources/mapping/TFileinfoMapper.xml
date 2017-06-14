@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ebeijia.robot.core.mapper.TFileinfoMapper">
+	<resultMap id="BaseResultMap" type="com.ebeijia.robot.core.pojo.TFileinfo">
+		<id column="FILE_ID" property="fileId" jdbcType="INTEGER" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="FILE_NAME" property="fileName" jdbcType="CHAR" />
+		<result column="LOCAL_PATH" property="localPath" jdbcType="CHAR" />
+		<result column="URL_PATH" property="urlPath" jdbcType="CHAR" />
+		<result column="RES1" property="res1" jdbcType="CHAR" />
+		<result column="RES2" property="res2" jdbcType="CHAR" />
+		<result column="RES3" property="res3" jdbcType="CHAR" />
+		<result column="RES4" property="res4" jdbcType="CHAR" />
+		<result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		FILE_ID, TYPE, FILE_NAME, LOCAL_PATH, URL_PATH, RES1, RES2,
+		RES3, RES4,
+		LAST_TIME
+	</sql>
+	<sql id="Example_Where_Clause">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="params.type != null">
+				and TYPE = #{params.type,jdbcType=CHAR}
+			</if>
+			<if test="params.fileName != null">
+				and FILE_NAME = #{params.fileName,jdbcType=CHAR}
+			</if>
+			<if test="params.localPath != null">
+				and LOCAL_PATH = #{params.localPath,jdbcType=CHAR}
+			</if>
+			<if test="params.urlPath != null">
+				and URL_PATH = #{params.urlPath,jdbcType=CHAR}
+			</if>
+			<if test="params.res1 != null">
+				and RES1 = #{params.res1,jdbcType=CHAR}
+			</if>
+			<if test="params.res2 != null">
+				and RES2 = #{params.res2,jdbcType=CHAR}
+			</if>
+			<if test="params.res3 != null">
+				and RES3 = #{params.res3,jdbcType=CHAR}
+			</if>
+			<if test="params.res4 != null">
+				and RES4 = #{params.res4,jdbcType=CHAR}
+			</if>
+			<if test="params.lastTime != null">
+				and LAST_TIME = #{params.lastTime,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectByParams" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_fileinfo
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectCountByParams" resultType="int">
+		select count(*) from t_fileinfo
+		<include refid="Example_Where_Clause" />
+	</select>
+	<select id="selectListByParams" resultType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_fileinfo
+		<include refid="Example_Where_Clause" />
+		<if test="orderParam != null">
+			order by ${orderParam}
+		</if>
+		<include refid="common.Pagination_Limit" />
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_fileinfo
+		where FILE_ID = #{fileId,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_fileinfo
+		where FILE_ID = #{fileId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ebeijia.robot.core.pojo.TFileinfo">
+		insert into t_fileinfo
+		(FILE_ID, TYPE, FILE_NAME,
+		LOCAL_PATH, URL_PATH, RES1, RES2,
+		RES3, RES4,
+		LAST_TIME)
+		values (#{fileId,jdbcType=INTEGER}, #{type,jdbcType=CHAR},
+		#{fileName,jdbcType=CHAR},
+		#{localPath,jdbcType=CHAR},
+		#{urlPath,jdbcType=CHAR}, #{res1,jdbcType=CHAR},
+		#{res2,jdbcType=CHAR},
+		#{res3,jdbcType=CHAR}, #{res4,jdbcType=CHAR},
+		#{lastTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.ebeijia.robot.core.pojo.TFileinfo"
+		useGeneratedKeys="true" keyProperty="fileId">
+		insert into t_fileinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fileId != null">
+				FILE_ID,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="fileName != null">
+				FILE_NAME,
+			</if>
+			<if test="localPath != null">
+				LOCAL_PATH,
+			</if>
+			<if test="urlPath != null">
+				URL_PATH,
+			</if>
+			<if test="res1 != null">
+				RES1,
+			</if>
+			<if test="res2 != null">
+				RES2,
+			</if>
+			<if test="res3 != null">
+				RES3,
+			</if>
+			<if test="res4 != null">
+				RES4,
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fileId != null">
+				#{fileId,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="fileName != null">
+				#{fileName,jdbcType=CHAR},
+			</if>
+			<if test="localPath != null">
+				#{localPath,jdbcType=CHAR},
+			</if>
+			<if test="urlPath != null">
+				#{urlPath,jdbcType=CHAR},
+			</if>
+			<if test="res1 != null">
+				#{res1,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				#{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				#{res3,jdbcType=CHAR},
+			</if>
+			<if test="res4 != null">
+				#{res4,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				#{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ebeijia.robot.core.pojo.TFileinfo">
+		update t_fileinfo
+		<set>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=CHAR},
+			</if>
+			<if test="fileName != null">
+				FILE_NAME = #{fileName,jdbcType=CHAR},
+			</if>
+			<if test="localPath != null">
+				LOCAL_PATH = #{localPath,jdbcType=CHAR},
+			</if>
+			<if test="urlPath != null">
+				URL_PATH = #{urlPath,jdbcType=CHAR},
+			</if>
+			<if test="res1 != null">
+				RES1 = #{res1,jdbcType=CHAR},
+			</if>
+			<if test="res2 != null">
+				RES2 = #{res2,jdbcType=CHAR},
+			</if>
+			<if test="res3 != null">
+				RES3 = #{res3,jdbcType=CHAR},
+			</if>
+			<if test="res4 != null">
+				RES4 = #{res4,jdbcType=CHAR},
+			</if>
+			<if test="lastTime != null">
+				LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where FILE_ID = #{fileId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ebeijia.robot.core.pojo.TFileinfo">
+		update t_fileinfo
+		set TYPE = #{type,jdbcType=CHAR},
+		FILE_NAME =
+		#{fileName,jdbcType=CHAR},
+		LOCAL_PATH = #{localPath,jdbcType=CHAR},
+		URL_PATH = #{urlPath,jdbcType=CHAR},
+		RES1 = #{res1,jdbcType=CHAR},
+		RES2
+		= #{res2,jdbcType=CHAR},
+		RES3 = #{res3,jdbcType=CHAR},
+		RES4 =
+		#{res4,jdbcType=CHAR},
+		LAST_TIME = #{lastTime,jdbcType=TIMESTAMP}
+		where
+		FILE_ID = #{fileId,jdbcType=INTEGER}
+	</update>
+</mapper>
